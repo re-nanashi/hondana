@@ -171,7 +171,8 @@ body {
 #main_content #header #searchbar_container {
 	background: rgba(21, 24, 28, 255);
 	height: 50px;
-	width: 500px;
+	width: 100%;
+	max-width: 500px;
 	border: none;
 	border-radius: 25px;
 }

@@ -1,5 +1,6 @@
 // if width is greater than 900 turn off updates bar;
-// if width is greater than 1200 turn off sidebar
+// if width is greater than 1200 turn off sidebar;
+//closes when the other one is opened
 
 const sideBar = () => {
 	const sideBar = document.getElementById('side_bar');
