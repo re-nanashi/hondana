@@ -8,9 +8,15 @@
 		<title>Hondana</title>
 	</head>
 	<body>
-		<div id="form_container"></div>
-		<section id="page-content">
-			<section id="side_bar" class="section">
+		<div id="form_container" class="hidden">
+			<button id="close_btn"><code>&#x2715</code></button>
+		</div>
+		<section id="page_content">
+			<section id="side_bar" class="section hidden">
+				<div class="close_sidebar_btn_container hidden">
+					<img src="./img/open_button.svg" id="close_sidebar_btn" alt="#"
+					height="30px" " />
+				</div>
 				<div class="side_bar_content">
 					<div id="logo">
 						<img src="./img/logo.svg" alt="#" height="45px" " />
@@ -40,12 +46,23 @@
 				</div>
 			</section>
 
-			<section id="updates_content" class="section">
-				<div class="user"></div>
-				<div class="new_updates"></div>
+			<section id="updates_bar" class="section hidden">
+				<div class="close_updatesbar_btn_container hidden">
+					<img src="./img/open_button.svg" id="close_updatesbar_btn" alt="#"
+					height="30px" " />
+				</div>
+				<div class="updates_bar_content">
+					<div class="user">
+						<h1>ユーザーの本棚</h1>
+						<div id="user_img">
+							<p>追加</p>
+						</div>
+					</div>
+					<div class="new_updates"></div>
+				</div>
 			</section>
 		</section>
 
-		<script src="./js/index.js"></script>
+		<script src="./src/index.js" type="module"></script>
 	</body>
 </html>
