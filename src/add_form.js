@@ -26,7 +26,4 @@ const Form = () => {
 	};
 };
 
-// //Instantiate Form()
-// const bookForm = Form();
-
 export { Form };

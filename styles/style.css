@@ -77,16 +77,15 @@ body {
 	display: flex;
 	justify-content: flex-end;
 	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 	background: rgba(0, 0, 0, 255);
+	transition: 0.7s ease;
+	opacity: 1;
 }
 
 #side_bar::-webkit-scrollbar {
 	display: none;
-}
-
-#side_bar {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
 }
 
 .close_sidebar_btn_container {
@@ -196,15 +195,13 @@ body {
 	background: rgba(0, 0, 0, 255);
 	overflow-y: scroll;
 	z-index: 1;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	transition: 0.7s ease;
 }
 
 #updates_bar::-webkit-scrollbar {
 	display: none;
-}
-
-#updates_bar {
-	-ms-overflow-style: none;
-	scrollbar-width: none;
 }
 
 .close_updatesbar_btn_container {
@@ -293,7 +290,7 @@ body {
 	}
 
 	#side_bar.hidden {
-		display: none;
+		width: 0px;
 	}
 
 	#main_content #header .side_bar_btn_container {
@@ -313,7 +310,7 @@ body {
 	}
 
 	#updates_bar.hidden {
-		display: none;
+		width: 0px;
 	}
 
 	#main_content #header .updates_btn_container {

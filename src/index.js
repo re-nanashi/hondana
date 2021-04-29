@@ -1,8 +1,25 @@
-import { sideBar } from './side_bar.js';
-import { Form } from './add_form.js';
+import { UI } from './event_handlers.js';
 
-const sideBars = sideBar();
-const bookForm = Form();
+const page = UI();
 
-sideBars.render();
-bookForm.render();
+page.run();
+
+const sample = document.getElementById('fetch');
+
+sample.addEventListener('click', function () {
+	testing('mangakakalot');
+});
+
+async function testing(website) {
+	let response = (
+		await fetch(
+			`https://magna-sc.cf/manga?q=${website}"`,
+			{
+				method: 'GET',
+			},
+			{ mode: 'no-cors' }
+		)
+	).json();
+
+	console.log(response);
+}
