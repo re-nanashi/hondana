@@ -4,22 +4,32 @@ const page = UI();
 
 page.run();
 
-const sample = document.getElementById('fetch');
+// const sample = document.getElementById('fetch');
 
-sample.addEventListener('click', function () {
-	testing('mangakakalot');
-});
+// sample.addEventListener('click', function () {
+// 	testing('mangakakalot');
+// });
 
-async function testing(website) {
-	let response = (
-		await fetch(
-			`https://magna-sc.cf/manga?q=${website}"`,
-			{
-				method: 'GET',
-			},
-			{ mode: 'no-cors' }
-		)
-	).json();
+// async function testing(website) {
+// 	let response = (
+// 		await fetch(
+// 			`https://magna-sc.cf/manga?q=${website}"`,
+// 			{
+// 				method: 'GET',
+// 			},
+// 			{ mode: 'no-cors' }
+// 		)
+// 	).json();
 
-	console.log(response);
-}
+// 	console.log(response);
+// }
+
+// const mql = window.matchMedia('(min-width: 901px)');
+
+// mql.addEventListener('change', (e) => {
+// 	if (e.matches) {
+// 		console.log('hey');
+// 	} else {
+// 		console.log('lol');
+// 	}
+// });

@@ -1,5 +1,3 @@
-// if width is greater than 900 turn off updates bar;
-// if width is greater than 1200 turn off sidebar;
 //closes when the other one is opened
 
 const sideBar = (sideBarID, openButtonID, closeButtonID) => {
@@ -25,4 +23,21 @@ const sideBar = (sideBarID, openButtonID, closeButtonID) => {
 	};
 };
 
-export { sideBar };
+function observeSideBar(closeSideBar, closeUpdatesBar) {
+	const checkUpdatesBar = window.matchMedia('(min-width: 901px)');
+	const checkSideBar = window.matchMedia('(min-width: 1201px)');
+
+	checkUpdatesBar.addEventListener('change', (e) => {
+		if (e.matches) {
+			closeUpdatesBar();
+		}
+	});
+
+	checkSideBar.addEventListener('change', (e) => {
+		if (e.matches) {
+			closeSideBar();
+		}
+	});
+}
+
+export { sideBar, observeSideBar };

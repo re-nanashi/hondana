@@ -25,12 +25,14 @@ body {
 	border-width: 1px;
 	border-color: rgba(172, 172, 172, 0.459);
 	border-radius: 25px;
+	transition: 0.2s ease-in;
+	opacity: 1;
 	z-index: 1;
 }
 
 #form_container.hidden {
-	transition: 0.9s ease-in;
-	display: none;
+	height: 0;
+	opacity: 0;
 }
 
 #form_container #close_btn {

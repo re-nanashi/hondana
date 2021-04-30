@@ -1,4 +1,4 @@
-import { sideBar } from './side_bar.js';
+import { sideBar, observeSideBar } from './side_bar.js';
 import { Form } from './add_form.js';
 
 const UI = () => {
@@ -23,6 +23,8 @@ const UI = () => {
 			//Renders sidebar events
 			sideBars.render();
 			updatesBar.render();
+			//Observes changes on media queries to close sidebar
+			observeSideBar(sideBars.closeSideBar, updatesBar.closeSideBar);
 		},
 
 		//Function: Deals with modal form events
