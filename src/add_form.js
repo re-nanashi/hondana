@@ -12,8 +12,8 @@ const Form = () => {
 		},
 
 		closeForm() {
-			formContent.classList.add('hidden');
 			pageContent.classList.remove('inactive');
+			formContent.classList.add('hidden');
 		},
 
 		render() {

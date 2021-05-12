@@ -31,8 +31,7 @@ body {
 }
 
 #form_container.hidden {
-	height: 0;
-	width: 0;
+	transform: scale(0);
 	opacity: 0;
 }
 
@@ -63,11 +62,15 @@ body {
 	flex-direction: row;
 	justify-content: inherit;
 	align-items: inherit;
+	transition: 0.01s;
 }
 
+/* Blur background if form is open */
 #page_content.inactive {
-	transition: 0.07s ease-in;
 	filter: blur(10px);
+	pointer-events: none;
+	cursor: default;
+	user-select: none;
 }
 
 .section {
@@ -339,5 +342,48 @@ body {
 	/* Right side bar button */
 	#main_content #header .updates_btn_container {
 		visibility: visible;
+	}
+}
+
+/* Form container responsive design */
+@media only screen and (max-width: 420px) {
+	#form_container {
+		height: 100vh;
+		width: 100vw;
+		border-radius: 0px;
+	}
+}
+
+@media only screen and (max-height: 600px) {
+	#form_container {
+		height: 100vh;
+		width: 100vw;
+		border-radius: 0px;
+	}
+}
+
+/*iPhone 5 or lower*/
+
+@media only screen and (max-width: 350px) {
+	#form_container {
+		height: 100vh;
+		width: 100vw;
+		border-radius: 0px;
+	}
+
+	#side_bar {
+		width: 100vw;
+	}
+
+	.side_bar_content {
+		right: -9px;
+	}
+
+	#updates_bar {
+		width: 100vw;
+	}
+
+	#updates_bar .updates_bar_content {
+		left: -9px;
 	}
 }
