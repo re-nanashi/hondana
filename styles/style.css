@@ -16,6 +16,7 @@ body {
 	background: rgba(0, 0, 0, 255);
 }
 
+/* Form styles */
 #form_container {
 	position: absolute;
 	height: 600px;
@@ -54,6 +55,7 @@ body {
 	background-color: rgba(22, 3, 9, 255);
 }
 
+/* Page styles */
 #page_content {
 	position: relative;
 	display: flex;
@@ -75,9 +77,10 @@ body {
 
 .section {
 	position: relative;
-	height: 100%;
+	height: 100vh;
 }
 
+/* Left Side Bar styles */
 #side_bar {
 	flex: 1;
 	display: flex;
@@ -149,12 +152,14 @@ body {
 	filter: brightness(90%);
 }
 
+/*Middle: Main Content styles */
 #main_content {
 	flex: 2;
 	border-left-style: solid;
 	border-right-style: solid;
 	border-width: 1.5px;
 	border-color: rgba(114, 114, 114, 0.459);
+	overflow: hidden;
 }
 
 #main_content #header {
@@ -182,6 +187,10 @@ body {
 	border-radius: 25px;
 }
 
+#main_content #main-container {
+	height: 100%;
+}
+
 #main_content #main-container #indicator {
 	display: flex;
 	align-items: center;
@@ -195,6 +204,24 @@ body {
 	border-color: rgba(114, 114, 114, 0.459);
 }
 
+/* MAIN LIBRARY */
+#main_content #main-container #book_library {
+	background-color: coral;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+#main_content #main-container #book_library .sample {
+	background: red;
+	height: 500px;
+}
+#main_content #main-container #book_library .sample2 {
+	background: pink;
+	height: 500px;
+}
+
+/* Right sidebar styles */
 #updates_bar {
 	flex: 1;
 	display: flex;
@@ -279,6 +306,7 @@ body {
 	border-radius: 25px;
 }
 
+/* Zoom out: scale */
 @media only screen and (min-width: 1500px) {
 	body {
 		width: 1500px;
@@ -363,7 +391,6 @@ body {
 }
 
 /*iPhone 5 or lower*/
-
 @media only screen and (max-width: 350px) {
 	#form_container {
 		height: 100vh;
@@ -371,16 +398,13 @@ body {
 		border-radius: 0px;
 	}
 
-	#side_bar {
+	#side_bar,
+	#updates_bar {
 		width: 100vw;
 	}
 
 	.side_bar_content {
 		right: -9px;
-	}
-
-	#updates_bar {
-		width: 100vw;
 	}
 
 	#updates_bar .updates_bar_content {
