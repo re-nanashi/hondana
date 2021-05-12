@@ -1,5 +1,13 @@
 //closes when the other one is opened
+//Side bar hide content when closed;
 
+/**
+ *
+ * @param {string} sideBarID
+ * @param {string} openButtonID
+ * @param {string} closeButtonID
+ * @returns renders side bar
+ */
 const sideBar = (sideBarID, openButtonID, closeButtonID) => {
 	const sideBar = document.getElementById(`${sideBarID}`);
 	const sideBarButton = document.getElementById(`${openButtonID}`);
@@ -23,19 +31,24 @@ const sideBar = (sideBarID, openButtonID, closeButtonID) => {
 	};
 };
 
-function observeSideBar(closeSideBar, closeUpdatesBar) {
+/**
+ *
+ * @param {callback}  function that closes LeftSideBar
+ * @param {callback} function that closes RightSideBar
+ */
+function observeSideBar(closeLeftSideBar, closeRightSideBar) {
 	const checkUpdatesBar = window.matchMedia('(min-width: 901px)');
 	const checkSideBar = window.matchMedia('(min-width: 1201px)');
 
 	checkUpdatesBar.addEventListener('change', (e) => {
 		if (e.matches) {
-			closeUpdatesBar();
+			closeRightSideBar();
 		}
 	});
 
 	checkSideBar.addEventListener('change', (e) => {
 		if (e.matches) {
-			closeSideBar();
+			closeLeftSideBar();
 		}
 	});
 }

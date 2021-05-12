@@ -10,21 +10,25 @@ const UI = () => {
 
 		//Function: Deals with sidebar and updates bar events
 		renderSideBar() {
-			const sideBars = sideBar(
+			const barCurrentlyOpen = false;
+
+			const leftSideBar = sideBar(
 				'side_bar',
 				'side_bar_btn',
 				'.close_sidebar_btn_container'
 			);
-			const updatesBar = sideBar(
+			const rightSideBar = sideBar(
 				'updates_bar',
 				'updates_btn',
 				'.close_updatesbar_btn_container'
 			);
+
 			//Renders sidebar events
-			sideBars.render();
-			updatesBar.render();
+			leftSideBar.render();
+			rightSideBar.render();
+
 			//Observes changes on media queries to close sidebar
-			observeSideBar(sideBars.closeSideBar, updatesBar.closeSideBar);
+			observeSideBar(leftSideBar.closeSideBar, rightSideBar.closeSideBar);
 		},
 
 		//Function: Deals with modal form events
@@ -36,4 +40,4 @@ const UI = () => {
 	};
 };
 
-export { UI };
+export { UI as init };

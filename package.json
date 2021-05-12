@@ -1,0 +1,19 @@
+{
+  "name": "hondana",
+  "version": "1.0.0",
+  "description": "'a simple library/notification webpage that mainly uses kiru, a RESTful API that scrapes favorite mangasites'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/re-nanashi/hondana.git"
+  },
+  "author": "re-nanashi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/re-nanashi/hondana/issues"
+  },
+  "homepage": "https://github.com/re-nanashi/hondana#readme"
+}

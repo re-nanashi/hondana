@@ -32,6 +32,7 @@ body {
 
 #form_container.hidden {
 	height: 0;
+	width: 0;
 	opacity: 0;
 }
 
@@ -281,6 +282,7 @@ body {
 	}
 }
 
+/* Mobile view: Left side */
 @media only screen and (max-width: 1200px) {
 	#side_bar {
 		position: absolute;
@@ -292,15 +294,25 @@ body {
 		border-color: rgba(172, 172, 172, 0.459);
 	}
 
+	/* Better hide transition */
+	.side_bar_content {
+		position: absolute;
+		right: 0px;
+		width: 600px;
+	}
+
+	/* To hide side bar */
 	#side_bar.hidden {
 		width: 0px;
 	}
 
+	/* Left side bar button */
 	#main_content #header .side_bar_btn_container {
 		visibility: visible;
 	}
 }
 
+/* Mobile view: Right side */
 @media only screen and (max-width: 900px) {
 	#updates_bar {
 		position: absolute;
@@ -312,10 +324,19 @@ body {
 		z-index: 1;
 	}
 
+	/* To hide side bar */
 	#updates_bar.hidden {
 		width: 0px;
 	}
 
+	/* Better hide transition */
+	#updates_bar .updates_bar_content {
+		position: absolute;
+		left: 0px;
+		width: 600px;
+	}
+
+	/* Right side bar button */
 	#main_content #header .updates_btn_container {
 		visibility: visible;
 	}
