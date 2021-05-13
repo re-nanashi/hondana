@@ -37,9 +37,9 @@ class Form {
 
 	//Create a div to display the results
 	static displayData(data) {
-		let {} = data;
+		let { source, title, image, status, latest } = data;
 
-		const bookLibraryCont = document.querySelector('#book_library');
+		const bookLibraryCont = document.querySelector('#results-cont');
 	}
 
 	static render() {
