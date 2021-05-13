@@ -10,7 +10,16 @@
 	<body>
 		<div id="form_container" class="hidden">
 			<button id="close_btn"><code>&#x2715</code></button>
-			<button id="fetch">fetch</button>
+			<h2>お気に入り作品リストに保存</h2>
+			<img src="./img/logo.svg" alt="#" height="100px" " />
+			<div id="results-cont"></div>
+			<form id="manga-form">
+				<div class="search-group">
+					<input type="text" id="url" class="search-form" placeholder="作品のURLを入力してくだい<">
+				</div>
+				<input type="submit" value="検索" class="manga_add_btn">
+			</form>
+			<button id="save_btn">保存</button>
 		</div>
 		<section id="page_content">
 			<section id="side_bar" class="section hidden">
