@@ -75,23 +75,26 @@ body {
 
 form#manga-form {
 	display: flex;
-	width: 80%;
 	flex-direction: row;
 	align-items: center;
+	width: 80%;
 	margin-top: 15px;
 }
 
-#manga-form > div > label {
-	position: absolute;
-	top: 80px;
-	color: rgb(224, 224, 224);
+.search-group {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 100%;
 }
 
-#url {
+#address__url {
+	position: relative;
 	background: rgba(21, 24, 28, 255);
 	border: transparent;
 	height: 50px;
-	width: 130%;
+	width: 100%;
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	outline: none;
@@ -99,8 +102,7 @@ form#manga-form {
 	color: rgb(224, 224, 224);
 }
 
-#manga-form > input {
-	margin-left: 60px;
+#manga-form #manga_search_btn {
 	height: 50px;
 	width: 50px;
 	border: transparent;
@@ -508,10 +510,6 @@ form#manga-form {
 	#form_container > h2 {
 		margin-top: 10px;
 		font-size: 15px;
-	}
-
-	#url {
-		width: 145%;
 	}
 
 	#side_bar,

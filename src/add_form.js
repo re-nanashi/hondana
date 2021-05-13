@@ -1,5 +1,5 @@
 // Factory Function: Handles opening and closing of form
-const Form = () => {
+const formControl = () => {
 	const formContent = document.getElementById('form_container');
 	const pageContent = document.getElementById('page_content');
 	const openButton = document.querySelector('.addBook_btn');
@@ -26,4 +26,4 @@ const Form = () => {
 	};
 };
 
-export { Form };
+export { formControl };

@@ -4,11 +4,11 @@ const page = init();
 
 page.run();
 
-const sample = document.getElementById('fetch');
+// const sample = document.getElementById('fetch');
 
-sample.addEventListener('click', function () {
-	testing('mangakatana.com/manga/the-max-level-hero-has-returned.25329');
-});
+// sample.addEventListener('click', function () {
+// 	testing('mangakatana.com/manga/the-max-level-hero-has-returned.25329');
+// });
 
 async function testing(website) {
 	let response = (
@@ -38,12 +38,12 @@ async function testing(website) {
 	// console.log(result2);
 }
 
-const mql = window.matchMedia('(min-width: 901px)');
+// const mql = window.matchMedia('(min-width: 901px)');
 
-mql.addEventListener('change', (e) => {
-	if (e.matches) {
-		console.log('hey');
-	} else {
-		console.log('lol');
-	}
-});
+// mql.addEventListener('change', (e) => {
+// 	if (e.matches) {
+// 		console.log('hey');
+// 	} else {
+// 		console.log('lol');
+// 	}
+// });

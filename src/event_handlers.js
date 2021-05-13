@@ -1,17 +1,17 @@
 import { sideBar, observeSideBar } from './side_bar.js';
-import { Form } from './add_form.js';
+import { formControl } from './add_form.js';
+import { Form } from './form.js';
 
-const UI = () => {
+const Events = () => {
 	return {
 		run() {
 			this.renderSideBar();
-			this.renderBookForm();
+			this.renderBookFormController();
+			this.renderForm();
 		},
 
 		//Function: Deals with sidebar and updates bar events
 		renderSideBar() {
-			const barCurrentlyOpen = false;
-
 			const leftSideBar = sideBar(
 				'side_bar',
 				'side_bar_btn',
@@ -32,12 +32,16 @@ const UI = () => {
 		},
 
 		//Function: Deals with modal form events
-		renderBookForm() {
-			const bookForm = Form();
+		renderBookFormController() {
+			const bookForm = formControl();
 
 			bookForm.render();
+		},
+
+		renderForm() {
+			Form.render();
 		},
 	};
 };
 
-export { UI as init };
+export { Events as init };
