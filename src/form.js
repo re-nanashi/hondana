@@ -41,7 +41,10 @@ class Form {
 		return JSON.parse(data);
 	}
 
-	//Create a div to display the results
+	/**
+	 * //Function: Displays data to results container
+	 * @param {object} objData
+	 */
 	static displayData(objData) {
 		let bookData = Book.getBookDetails(objData);
 		let { source, title, image, status, latest } = bookData;
