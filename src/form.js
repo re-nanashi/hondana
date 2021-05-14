@@ -7,7 +7,7 @@ class Book {
 		this._bookData = bookData;
 	}
 
-	//sample static function to format data
+	//Function: return an organized object data
 	static getBookDetails(data = this._bookData) {
 		//Get book source through the object key
 		//Convert array to string
@@ -39,19 +39,26 @@ class Form {
 		let data = await res;
 
 		return JSON.parse(data);
-		// console.log(data);
 	}
 
 	//Create a div to display the results
-	static displayData(data) {
-		let formattedData = Book.getBookDetails(data);
-		let { source, title, image, status, latest } = formattedData;
+	static displayData(objData) {
+		let bookData = Book.getBookDetails(objData);
+		let { source, title, image, status, latest } = bookData;
 
 		const bookLibraryCont = document.querySelector('#results-cont');
 
-		const bookCard = document.createElement('div');
+		//Checks if previous results is still displayed
+		if (bookLibraryCont.childElementCount > 0) {
+			//Remove previous result
+			bookLibraryCont.firstElementChild.remove();
+		}
 
+		//Create new div
+		const bookCard = document.createElement('div');
 		bookCard.classList.add('result');
+
+		//Results HTML template
 		bookCard.innerHTML = `
 		<div class="cover-image">
 			<img src=${image} alt="book_cover" height="200px">
@@ -85,13 +92,16 @@ class Form {
 
 		//Event: search
 		form.addEventListener('submit', async (e) => {
-			e.preventDefault();
 			//Prevent actual submit and refresh
+			e.preventDefault();
+
 			//Get form value
 			const url = document.querySelector('#address__url').value;
 
+			//Fetch for object data
 			const data = await Form.getBookData(url);
 
+			//Display data to results container
 			Form.displayData(data);
 		});
 	}
