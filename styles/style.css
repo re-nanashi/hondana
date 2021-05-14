@@ -66,11 +66,29 @@ body {
 }
 
 #form_container > #results-cont {
-	height: 250px;
+	height: 220px;
 	width: 80%;
 	border: transparent;
-	border-radius: 25px;
+	border-radius: 10px;
 	background: rgba(21, 24, 28, 255);
+	font-size: 13px;
+}
+
+.result {
+	display: flex;
+	flex-direction: row;
+}
+
+.result > .cover-image {
+	flex: 0.7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.result > .details {
+	flex: 1;
+	color: white;
 }
 
 form#manga-form {

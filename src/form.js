@@ -7,20 +7,26 @@ class Book {
 		this._bookData = bookData;
 	}
 
-	getBookDetails() {
+	//sample static function to format data
+	static getBookDetails(data = this._bookData) {
 		//Get book source through the object key
 		//Convert array to string
-		let source = Object.keys(this._bookData).toString();
+		let source = Object.keys(data).toString();
 
 		return {
 			source: source,
-			...this._bookData[`${source}`],
+			...data[`${source}`],
 		};
 	}
 }
 
 //Class: Form
 class Form {
+	/**
+	 *
+	 * @param {string} url
+	 * @returns {object} from JSON
+	 */
 	static async getBookData(url) {
 		let res = (
 			await fetch(
@@ -32,27 +38,61 @@ class Form {
 
 		let data = await res;
 
-		console.log(data);
+		return JSON.parse(data);
+		// console.log(data);
 	}
 
 	//Create a div to display the results
 	static displayData(data) {
-		let { source, title, image, status, latest } = data;
+		let formattedData = Book.getBookDetails(data);
+		let { source, title, image, status, latest } = formattedData;
 
 		const bookLibraryCont = document.querySelector('#results-cont');
+
+		const bookCard = document.createElement('div');
+
+		bookCard.classList.add('result');
+		bookCard.innerHTML = `
+		<div class="cover-image">
+			<img src=${image} alt="book_cover" height="200px">
+		</div>
+		<div class="details">
+			<div class="title">
+				Title
+				<i>${title}</i>
+			</div>
+			<div class="source">
+				Source
+				<i>${source}</i>
+			</div>
+
+			<div class="status">
+				Status
+				<i>${status}</i>
+			</div>
+			<div class="latest">
+				Latest
+				<i>${latest}</i>
+			</div>
+		</div>
+		`;
+
+		bookLibraryCont.append(bookCard);
 	}
 
 	static render() {
 		const form = document.querySelector('#manga-form');
 
 		//Event: search
-		form.addEventListener('submit', (e) => {
+		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			//Prevent actual submit and refresh
 			//Get form value
 			const url = document.querySelector('#address__url').value;
 
-			Form.getBookData(url);
+			const data = await Form.getBookData(url);
+
+			Form.displayData(data);
 		});
 	}
 }
