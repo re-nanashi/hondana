@@ -45,17 +45,14 @@ class Form {
 	 * //Function: Displays data to results container
 	 * @param {object} objData
 	 */
-	static displayData(objData) {
+	static displayData(objData = 'error') {
 		let bookData = Book.getBookDetails(objData);
 		let { source, title, image, status, latest } = bookData;
 
 		const bookLibraryCont = document.querySelector('#results-cont');
 
 		//Checks if previous results is still displayed
-		if (bookLibraryCont.childElementCount > 0) {
-			//Remove previous result
-			bookLibraryCont.firstElementChild.remove();
-		}
+		this.removeResults();
 
 		//Create new div
 		const bookCard = document.createElement('div');
@@ -64,12 +61,11 @@ class Form {
 		//Results HTML template
 		bookCard.innerHTML = `
 		<div class="cover-image">
-			<img src=${image} alt="book_cover" height="200px">
+			<img src=${image} alt="book_cover" height="140px">
 		</div>
 		<div class="details">
 			<div class="title">
-				Title
-				<i>${title}</i>
+				${title}
 			</div>
 			<div class="source">
 				Source
@@ -90,6 +86,45 @@ class Form {
 		bookLibraryCont.append(bookCard);
 	}
 
+	static displayLoader() {
+		const bookLibraryCont = document.querySelector('#results-cont');
+
+		//Checks if previous results is still displayed
+		this.removeResults();
+
+		const loaderDiv = document.createElement('div');
+		loaderDiv.innerHTML = `
+		<div class="loader">
+		  <div class="bounce1"></div>
+		  <div class="bounce2"></div>
+		  <div class="bounce3"></div>
+		</div>
+		`;
+
+		bookLibraryCont.append(loaderDiv);
+	}
+
+	static removeResults() {
+		const bookLibraryCont = document.querySelector('#results-cont');
+
+		//Checks if previous results is still displayed
+		if (bookLibraryCont.childElementCount > 0) {
+			//Remove previous result
+			bookLibraryCont.firstElementChild.remove();
+		}
+	}
+
+	static displayError() {
+		const bookLibraryCont = document.querySelector('#results-cont');
+
+		const errorDiv = document.createElement('div');
+		errorDiv.innerHTML = `
+		<div class="error-result">エラーが発生しました。もう一度お試しください</div>
+		`;
+
+		bookLibraryCont.append(errorDiv);
+	}
+
 	static render() {
 		const form = document.querySelector('#manga-form');
 
@@ -101,11 +136,33 @@ class Form {
 			//Get form value
 			const url = document.querySelector('#address__url').value;
 
-			//Fetch for object data
-			const data = await Form.getBookData(url);
+			//Call loader
+			this.displayLoader();
 
-			//Display data to results container
-			Form.displayData(data);
+			//Fetch for object data
+			async function fetchData() {
+				const data = await Form.getBookData(url);
+
+				//Remove loader
+				document.querySelector('#results-cont').firstElementChild.remove();
+
+				return data;
+			}
+
+			fetchData()
+				.then((results) => {
+					//Display data to results container
+					Form.displayData(results);
+				})
+				.catch((err) => {
+					const resultsContainer = document.querySelector('#results-cont');
+
+					//Remove loader
+					resultsContainer.firstElementChild.remove();
+
+					//Display error message
+					this.displayError();
+				});
 		});
 	}
 }

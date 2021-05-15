@@ -7,7 +7,6 @@ const Events = () => {
 		run() {
 			this.renderSideBar();
 			this.renderModalFormController();
-			this.renderFormFunctions();
 		},
 
 		//Function: Deals with sidebar and updates bar events
@@ -52,11 +51,21 @@ const Events = () => {
 				},
 
 				closeForm() {
+					//Remove text input from form
+					document.querySelector('#address__url').value = '';
+
+					//Remove current result
+					Form.removeResults();
+
+					//Close container
 					pageContent.classList.remove('inactive');
 					formContent.classList.add('hidden');
 				},
 
 				render() {
+					//Calls Form's render method
+					Form.render();
+
 					//Event: Open form
 					openButton.addEventListener('click', this.openForm);
 
@@ -64,11 +73,6 @@ const Events = () => {
 					closeButton.addEventListener('click', this.closeForm);
 				},
 			};
-		},
-
-		//Function: calls Form class render method
-		renderFormFunctions() {
-			Form.render();
 		},
 	};
 };
