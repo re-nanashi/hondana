@@ -1,6 +1,3 @@
-//closes when the other one is opened
-//Side bar hide content when closed;
-
 /**
  *
  * @param {string} sideBarID
