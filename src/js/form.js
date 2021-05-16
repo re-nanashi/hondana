@@ -45,7 +45,7 @@ class Form {
 	 * //Function: Displays data to results container
 	 * @param {object} objData
 	 */
-	static displayData(objData = 'error') {
+	static displayData(objData) {
 		let bookData = Book.getBookDetails(objData);
 		let { source, title, image, status, latest } = bookData;
 
@@ -127,6 +127,11 @@ class Form {
 
 	static render() {
 		const form = document.querySelector('#manga-form');
+		const modalControl = this.formModalControllers();
+		let currentData = {};
+
+		//Event: modal controllers
+		modalControl.render();
 
 		//Event: search
 		form.addEventListener('submit', async (e) => {
@@ -151,8 +156,11 @@ class Form {
 
 			fetchData()
 				.then((results) => {
+					//Stage current data
+					currentData = results;
+
 					//Display data to results container
-					Form.displayData(results);
+					this.displayData(results);
 				})
 				.catch((err) => {
 					const resultsContainer = document.querySelector('#results-cont');
@@ -164,6 +172,54 @@ class Form {
 					this.displayError();
 				});
 		});
+
+		//Event: Save/add data to library
+		document.querySelector('#save_btn').addEventListener('click', () => {
+			//Instantiate book class
+			const book = new Book(currentData);
+
+			//Display data to library < import function from ui
+			//add to storage < import from storage.js
+
+			//Clear fields and remove results
+			//Close modal
+			modalControl.closeForm();
+		});
+	}
+
+	//Function: handles modal events
+	static formModalControllers() {
+		const formContent = document.getElementById('form_container');
+		const pageContent = document.getElementById('page_content');
+		const openButton = document.querySelector('.addBook_btn');
+		const closeButton = document.querySelector('#close_btn');
+
+		return {
+			openForm() {
+				formContent.classList.remove('hidden');
+				pageContent.classList.add('inactive');
+			},
+
+			closeForm() {
+				//Remove text input from form
+				document.querySelector('#address__url').value = '';
+
+				//Remove current result
+				Form.removeResults();
+
+				//Close container
+				pageContent.classList.remove('inactive');
+				formContent.classList.add('hidden');
+			},
+
+			render() {
+				//Event: Open form
+				openButton.addEventListener('click', this.openForm);
+
+				//Event: Close form
+				closeButton.addEventListener('click', this.closeForm);
+			},
+		};
 	}
 }
 
