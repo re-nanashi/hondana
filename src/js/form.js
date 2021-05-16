@@ -1,14 +1,16 @@
+import { LibraryUI } from './library_UI.js';
+
 /**
  * //Class: Manga/Manhua/Manhwa
  * @param {object} dataObject - with source as the key
  */
 class Book {
 	constructor(bookData) {
-		this._bookData = bookData;
+		this.bookData = bookData;
 	}
 
 	//Function: return an organized object data
-	static getBookDetails(data = this._bookData) {
+	static getBookDetails(data) {
 		//Get book source through the object key
 		//Convert array to string
 		let source = Object.keys(data).toString();
@@ -179,6 +181,8 @@ class Form {
 			const book = new Book(currentData);
 
 			//Display data to library < import function from ui
+			LibraryUI.addMangaToList(book.bookData);
+
 			//add to storage < import from storage.js
 
 			//Clear fields and remove results
@@ -223,4 +227,4 @@ class Form {
 	}
 }
 
-export { Form };
+export { Form, Book };
