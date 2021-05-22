@@ -2,6 +2,10 @@ import { Book } from './form.js';
 
 //Class: UI Library
 class LibraryUI {
+	static render() {
+		this.moreFunction();
+	}
+
 	static getListFromStorage() {}
 
 	//Add and display manga to list
@@ -28,8 +32,8 @@ class LibraryUI {
 				<img
 					src=${image}
 					alt="image-cover"
-					height="220px"
-					width="163px"
+					height="150px"
+					width="112px"
 				/>
 				<a
 					href=${latestLink}
@@ -40,18 +44,20 @@ class LibraryUI {
 				>
 			</div>
 			<div class="manga-details">
-				<div class="manga-title">${title}</div>
+				<div class="manga-title">
+					<a
+						href=${link}
+						target="_blank"
+						rel="noopener noreferrer"
+						>${title}
+					</a>	
+				</div>
 				<table class="text-info">
 					<tbody>
 						<tr>
 							<td class="table-label">Source:</td>
 							<td class="table-value manga-source">
-								<a
-									href=${link}
-									target="_blank"
-									rel="noopener noreferrer"
-									>${source}
-								</a>
+								<i>${source}</i>
 							</td>
 						</tr>
 						<tr>
@@ -69,6 +75,10 @@ class LibraryUI {
 						<tr></tr>
 					</tbody>
 				</table>
+				<div class="description">${description}</div>
+				<div class="more_btn_cont">
+					<button class="more">もっと見る</button>
+				</div>
 			</div>
 		`;
 
@@ -76,6 +86,23 @@ class LibraryUI {
 	}
 	static removeMangaFromList() {}
 	static editManga() {}
+
+	static moreFunction() {
+		const readMoreBtn = document.querySelectorAll('.more');
+
+		readMoreBtn.forEach((button) => {
+			button.addEventListener('click', this.expandCollapse);
+		});
+	}
+
+	static expandCollapse(event) {
+		const parentElement =
+			event.target.parentElement.parentElement.parentElement;
+
+		parentElement.classList.contains('expand')
+			? parentElement.classList.remove('expand')
+			: parentElement.classList.add('expand');
+	}
 }
 
 export { LibraryUI };

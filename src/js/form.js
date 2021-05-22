@@ -188,6 +188,7 @@ class Form {
 			LibraryUI.addMangaToList(book.bookData);
 
 			//add to storage < import from storage.js
+			LibraryUI.moreFunction();
 
 			//Clear fields and remove results
 			//Close modal
