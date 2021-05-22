@@ -396,13 +396,55 @@ form#manga-form {
 	display: block;
 }
 
-#main_content #main-container #book_library .sample {
-	background: rgb(121, 121, 121);
-	height: 500px;
+/* Book card  */
+#book_library .book_card {
+	position: relative;
+	background: rgba(21, 24, 28, 255);
+	/* color: rgba(217, 217, 217, 255); */
+	color: white;
+	min-height: 300px;
+	display: flex;
 }
-#main_content #main-container #book_library .sample2 {
-	background: rgb(255, 218, 224);
-	height: 500px;
+
+#book_library .book_card:hover {
+	background: rgba(28, 31, 35, 255);
+	transition: 0.1s;
+}
+
+.book_card .manga-cover-cont {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 15px;
+	flex: 1;
+}
+
+.manga-cover-cont a.read_now_button {
+	color: white;
+	background-color: rgba(217, 22, 95, 255);
+	height: 35px;
+	width: 100%;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 400;
+	margin-top: 8px;
+	padding: 5px;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.book_card .manga-details {
+	display: flex;
+	flex-direction: column;
+	padding: 15px 5px 15px 5px;
+	flex: 3;
+}
+
+.manga-details .manga-title {
+	font-size: 25px;
+	font-weight: 600;
 }
 
 /* Right sidebar styles */

@@ -70,16 +70,16 @@ class Form {
 				${title}
 			</div>
 			<div class="source">
-				Source
+				Source:
 				<i>${source}</i>
 			</div>
 
 			<div class="status">
-				Status
+				Status:
 				<i>${status}</i>
 			</div>
 			<div class="latest">
-				Latest
+				Latest:
 				<i>${latest}</i>
 			</div>
 		</div>
@@ -132,7 +132,7 @@ class Form {
 		const modalControl = this.formModalControllers();
 		let currentData = {};
 
-		//Event: modal controllers
+		//Event: render modal controllers
 		modalControl.render();
 
 		//Event: search
@@ -180,8 +180,9 @@ class Form {
 			//Instantiate book class
 			const book = new Book(currentData);
 
+			console.log(Book.getBookDetails(book.bookData));
 			//Display data to library < import function from ui
-			LibraryUI.addMangaToList(book.bookData);
+			// LibraryUI.addMangaToList(book.bookData);
 
 			//add to storage < import from storage.js
 
