@@ -183,9 +183,9 @@ class Form {
 			//Instantiate book class
 			const book = new Book(currentData);
 
-			console.log(Book.getBookDetails(book.bookData));
+			// console.log(Book.getBookDetails(book.bookData));
 			//Display data to library < import function from ui
-			// LibraryUI.addMangaToList(book.bookData);
+			LibraryUI.addMangaToList(book.bookData);
 
 			//add to storage < import from storage.js
 
