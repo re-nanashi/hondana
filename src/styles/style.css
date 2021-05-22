@@ -90,14 +90,14 @@ body {
 }
 
 .result > .details {
-	padding: 35px 0px 35px 5px;
+	padding: 25px 0px 25px 5px;
 	flex: 1;
 	color: white;
 }
 .result > .details > .title {
 	font-size: 18px;
 	font-weight: 600;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 }
 
 .details i {
@@ -404,6 +404,9 @@ form#manga-form {
 	color: white;
 	min-height: 300px;
 	display: flex;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: rgba(172, 172, 172, 0.178);
 }
 
 #book_library .book_card:hover {
@@ -445,6 +448,21 @@ form#manga-form {
 .manga-details .manga-title {
 	font-size: 25px;
 	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+td.table-label {
+	width: 90px;
+}
+
+td.manga-source > a {
+	color: white;
+	text-decoration: none;
+}
+
+td.manga-source > a:hover {
+	color: rgba(217, 22, 95, 255);
+	transition: 0.2s;
 }
 
 /* Right sidebar styles */

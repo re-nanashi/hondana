@@ -49,7 +49,7 @@ class Form {
 	 */
 	static displayData(objData) {
 		let bookData = Book.getBookDetails(objData);
-		let { source, title, image, status, latest } = bookData;
+		let { source, title, image, author, status, latest } = bookData;
 
 		const bookLibraryCont = document.querySelector('#results-cont');
 
@@ -73,7 +73,10 @@ class Form {
 				Source:
 				<i>${source}</i>
 			</div>
-
+			<div class="authors">
+				Author(s):
+				<i>${author}</i>
+			</div>
 			<div class="status">
 				Status:
 				<i>${status}</i>
