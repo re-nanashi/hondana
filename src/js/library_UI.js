@@ -84,8 +84,8 @@ class LibraryUI {
 
 		libraryContainer.append(bookCard);
 	}
-	static removeMangaFromList() {}
-	static editManga() {}
+// 	static removeMangaFromList() {}
+// 	static editManga() {}
 
 	static moreFunction() {
 		const readMoreBtn = document.querySelectorAll('.more');
