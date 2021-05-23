@@ -23,6 +23,13 @@ class LibraryUI {
 			description,
 		} = data;
 
+		//Save images that has token
+		let coverBase64;
+		this.toDataURL(image, (dataURL) => {
+			coverBase64 = dataURL;
+			console.log(dataURL);
+		});
+
 		const libraryContainer = document.querySelector('#book_library');
 		const bookCard = document.createElement('div');
 		bookCard.classList.add('book_card');
@@ -30,7 +37,7 @@ class LibraryUI {
 		bookCard.innerHTML = `
 			<div class="manga-cover-cont">
 				<img
-					src=${image}
+					src=${coverBase64}
 					alt="image-cover"
 					height="150px"
 					width="112px"
@@ -84,8 +91,24 @@ class LibraryUI {
 
 		libraryContainer.append(bookCard);
 	}
-// 	static removeMangaFromList() {}
-// 	static editManga() {}
+
+	static toDataURL(src, callback) {
+		let img = new Image();
+		img.crossOrigin = 'Anonymous';
+		img.onload = function () {
+			let canvas = document.createElement('canvas');
+			let ctx = canvas.getContext('2d');
+			let dataURL;
+			canvas.height = this.naturalHeight;
+			canvas.width = this.naturalWidth;
+			ctx.drawImage(this, 0, 0);
+			dataURL = canvas.toDataURL('image/jpeg');
+			callback(dataURL);
+		};
+		img.src = src;
+	}
+	// 	static removeMangaFromList() {}
+	// 	static editManga() {}
 
 	static moreFunction() {
 		const readMoreBtn = document.querySelectorAll('.more');
