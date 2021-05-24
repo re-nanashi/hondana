@@ -4,7 +4,7 @@ import { BookCardCreate } from './book_card.js';
 //Class: UI Library
 class LibraryUI {
 	static render() {
-		this.moreFunction();
+		this.expandFunction();
 	}
 
 	static getListFromStorage() {}
