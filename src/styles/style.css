@@ -419,6 +419,26 @@ form#manga-form {
 	transition: 0.1s;
 }
 
+.book_card #card_close_btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 30px;
+	width: 30px;
+	border: none;
+	border-radius: 25px;
+	font-size: 20px;
+	color: rgba(217, 22, 95, 255);
+	background-color: rgba(21, 24, 28, 255);
+	cursor: pointer;
+	z-index: 1;
+}
+
+.book_card #card_close_btn:hover {
+	transition: 0.07s ease-in;
+	background-color: rgba(22, 3, 9, 255);
+}
+
 .book_card .manga-cover-cont {
 	display: flex;
 	flex-direction: column;
