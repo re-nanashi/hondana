@@ -419,7 +419,7 @@ form#manga-form {
 	transition: 0.1s;
 }
 
-.book_card #card_close_btn {
+.book_card #card_remove_btn {
 	position: absolute;
 	top: 10px;
 	right: 10px;
@@ -434,7 +434,7 @@ form#manga-form {
 	z-index: 1;
 }
 
-.book_card #card_close_btn:hover {
+.book_card #card_remove_btn:hover {
 	transition: 0.07s ease-in;
 	background-color: rgba(22, 3, 9, 255);
 }

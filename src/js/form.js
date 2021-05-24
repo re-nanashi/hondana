@@ -188,10 +188,14 @@ class Form {
 			LibraryUI.addMangaToList(book.bookData);
 
 			//add to storage < import from storage.js
+
+			//Update library list
 			LibraryUI.expandFunction();
+			LibraryUI.removeMangaFromList();
 
 			//Clear fields and remove results
 			//Close modal
+			currentData = {};
 			modalControl.closeForm();
 		});
 	}

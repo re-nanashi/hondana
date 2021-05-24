@@ -26,6 +26,7 @@ export class BookCardCreate {
 		} = dataObj;
 
 		let cardHTML = `
+            <button id="card_remove_btn">&#x2715</button>
             <div class="manga-cover-cont">
                 <img
                     src=${image}

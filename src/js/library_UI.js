@@ -5,6 +5,7 @@ import { BookCardCreate } from './book_card.js';
 class LibraryUI {
 	static render() {
 		this.expandFunction();
+		this.removeMangaFromList();
 	}
 
 	static getListFromStorage() {}
@@ -23,24 +24,38 @@ class LibraryUI {
 		libraryContainer.append(bookCard);
 	}
 
-	// 	static removeMangaFromList() {}
+	static removeMangaFromList() {
+		const removeButton = document.querySelectorAll('#card_remove_btn');
+
+		removeButton.forEach((button) => {
+			button.addEventListener('click', removeCard);
+		});
+
+		function removeCard(e) {
+			const bookLibrary = document.querySelector('#book_library');
+			//select .book_card element
+			const parentElement = e.target.parentElement;
+
+			bookLibrary.removeChild(parentElement);
+		}
+	}
 	// 	static editManga() {}
 
 	static expandFunction() {
 		const readMoreBtn = document.querySelectorAll('.more');
 
 		readMoreBtn.forEach((button) => {
-			button.addEventListener('click', this.expandCollapse);
+			button.addEventListener('click', expandCollapse);
 		});
-	}
 
-	static expandCollapse(event) {
-		const parentElement =
-			event.target.parentElement.parentElement.parentElement;
+		function expandCollapse(e) {
+			//select .book_card element
+			const parentElement = e.target.parentElement.parentElement.parentElement;
 
-		parentElement.classList.contains('expand')
-			? parentElement.classList.remove('expand')
-			: parentElement.classList.add('expand');
+			parentElement.classList.contains('expand')
+				? parentElement.classList.remove('expand')
+				: parentElement.classList.add('expand');
+		}
 	}
 }
 
