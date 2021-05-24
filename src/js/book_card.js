@@ -25,11 +25,13 @@ export class BookCardCreate {
 			description,
 		} = dataObj;
 
+		let base64Image = 'data:image/png;base64,' + image;
+
 		let cardHTML = `
             <button id="card_remove_btn">&#x2715</button>
             <div class="manga-cover-cont">
                 <img
-                    src=${image}
+                    src=${base64Image}
                     alt="image-cover"
                     height="150px"
                     width="112px"

@@ -4,8 +4,19 @@ import { BookCardCreate } from './book_card.js';
 //Class: UI Library
 class LibraryUI {
 	static render() {
-		this.expandFunction();
-		this.removeMangaFromList();
+		//Event: Remove card
+		const removeButton = document.querySelectorAll('#card_remove_btn');
+
+		removeButton.forEach((button) => {
+			button.addEventListener('click', LibraryUI.removeCard);
+		});
+
+		//Event: Expand card
+		const readMoreBtn = document.querySelectorAll('.more');
+
+		readMoreBtn.forEach((button) => {
+			button.addEventListener('click', LibraryUI.expandCollapse);
+		});
 	}
 
 	static getListFromStorage() {}
@@ -17,45 +28,30 @@ class LibraryUI {
 
 		const libraryContainer = document.querySelector('#book_library');
 		const bookCard = document.createElement('div');
-		bookCard.classList.add('book_card');
 
+		bookCard.classList.add('book_card');
 		bookCard.innerHTML = card.createNewCard();
 
 		libraryContainer.append(bookCard);
 	}
 
-	static removeMangaFromList() {
-		const removeButton = document.querySelectorAll('#card_remove_btn');
+	// //Add Confirmation delete pop up
+	static removeCard(e) {
+		//select .book_card element
+		const parentElement = e.target.parentElement;
+		const bookLibrary = document.querySelector('#book_library');
 
-		removeButton.forEach((button) => {
-			button.addEventListener('click', removeCard);
-		});
-
-		function removeCard(e) {
-			const bookLibrary = document.querySelector('#book_library');
-			//select .book_card element
-			const parentElement = e.target.parentElement;
-
-			bookLibrary.removeChild(parentElement);
-		}
+		bookLibrary.removeChild(parentElement);
 	}
 	// 	static editManga() {}
 
-	static expandFunction() {
-		const readMoreBtn = document.querySelectorAll('.more');
+	static expandCollapse(e) {
+		//select .book_card element
+		const parentElement = e.target.parentElement.parentElement.parentElement;
 
-		readMoreBtn.forEach((button) => {
-			button.addEventListener('click', expandCollapse);
-		});
-
-		function expandCollapse(e) {
-			//select .book_card element
-			const parentElement = e.target.parentElement.parentElement.parentElement;
-
-			parentElement.classList.contains('expand')
-				? parentElement.classList.remove('expand')
-				: parentElement.classList.add('expand');
-		}
+		parentElement.classList.contains('expand')
+			? parentElement.classList.remove('expand')
+			: parentElement.classList.add('expand');
 	}
 }
 

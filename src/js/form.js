@@ -50,6 +50,7 @@ class Form {
 	static displayData(objData) {
 		let bookData = Book.getBookDetails(objData);
 		let { source, title, image, author, status, latest } = bookData;
+		let base64Img = 'data:image/png;base64,' + image;
 
 		const bookLibraryCont = document.querySelector('#results-cont');
 
@@ -63,7 +64,7 @@ class Form {
 		//Results HTML template
 		bookCard.innerHTML = `
 		<div class="cover-image">
-			<img src=${image} alt="book_cover" height="140px">
+			<img src=${base64Img} alt="book_cover" height="140px">
 		</div>
 		<div class="details">
 			<div class="title">
@@ -178,20 +179,20 @@ class Form {
 				});
 		});
 
+		//NOTE: IF CURRENT DATA IS EMPTY DO NOT ADD
+		//      IF DATA IS ALREADY SAVE DO NOT ADD
 		//Event: Save/add data to library
 		document.querySelector('#save_btn').addEventListener('click', () => {
 			//Instantiate book class
 			const book = new Book(currentData);
 
-			// console.log(Book.getBookDetails(book.bookData));
-			//Display data to library < import function from ui
+			//Display data to library
 			LibraryUI.addMangaToList(book.bookData);
 
 			//add to storage < import from storage.js
 
 			//Update library list
-			LibraryUI.expandFunction();
-			LibraryUI.removeMangaFromList();
+			LibraryUI.render();
 
 			//Clear fields and remove results
 			//Close modal
