@@ -8,14 +8,18 @@ export class Storage {
 		} else {
 			mangaList = JSON.parse(localStorage.getItem('mangaList'));
 		}
+		//Default: Sort alphabetical order
+		mangaList.sort((firstItem, secondItem) => {
+			return firstItem['title'].localeCompare(secondItem['title']);
+		});
 
 		return mangaList;
 	}
 
-	//Filter by name
 	static storeManga(manga) {
 		const mangaList = Storage.getMangaList();
 		mangaList.push(manga);
+
 		localStorage.setItem('mangaList', JSON.stringify(mangaList));
 	}
 

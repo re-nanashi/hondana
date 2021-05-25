@@ -34,6 +34,7 @@ class LibraryUI {
 		});
 	}
 
+	//Get manga from storage then display
 	static displayListFromStorage() {
 		const mangaList = Storage.getMangaList();
 
@@ -73,10 +74,8 @@ class LibraryUI {
 
 		Storage.removeMangaFromStorage(title);
 	}
-	// 	static editManga() {}
 
 	static expandCollapse(e) {
-		console.log(e.target);
 		//select .book_card element
 		const parentElement = e.target.parentElement.parentElement.parentElement;
 
