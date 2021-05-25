@@ -4,10 +4,17 @@ import { BookCardCreate } from './book_card.js';
 //Class: UI Library
 class LibraryUI {
 	static render() {
-		//Event: Remove card
+		//Event: Open remove card popup
 		const removeButton = document.querySelectorAll('#card_remove_btn');
 
 		removeButton.forEach((button) => {
+			button.addEventListener('click', LibraryUI.removePopUpToggle);
+		});
+
+		//Event: Confirm remove
+		const confirmRemove = document.querySelectorAll('#confirm');
+
+		confirmRemove.forEach((button) => {
 			button.addEventListener('click', LibraryUI.removeCard);
 		});
 
@@ -35,10 +42,15 @@ class LibraryUI {
 		libraryContainer.append(bookCard);
 	}
 
+	static removePopUpToggle(e) {
+		const confirmationPopUp = e.target.querySelector('.confirmation');
+
+		if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
+	}
 	// //Add Confirmation delete pop up
 	static removeCard(e) {
 		//select .book_card element
-		const parentElement = e.target.parentElement;
+		const parentElement = e.target.parentElement.parentElement.parentElement;
 		const bookLibrary = document.querySelector('#book_library');
 
 		bookLibrary.removeChild(parentElement);

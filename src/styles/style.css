@@ -439,6 +439,53 @@ form#manga-form {
 	background-color: rgba(22, 3, 9, 255);
 }
 
+#card_remove_btn .confirmation {
+	visibility: hidden;
+	position: absolute;
+	width: 110px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	padding: 5px;
+	border-radius: 6px;
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.3s;
+	top: 0px;
+	bottom: auto;
+	right: 128%;
+	font-size: 12px;
+	cursor: default;
+}
+
+.confirmation #confirm {
+	text-decoration: none;
+	font-size: 8px;
+	color: white;
+	background-color: rgba(217, 22, 95, 255);
+	padding: 0px 5px 2px 5px;
+	padding-bottom: 2px;
+	border: transparent;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#card_remove_btn .confirmation::after {
+	content: '';
+	position: absolute;
+	top: 35%;
+	left: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent transparent #555;
+}
+
+#card_remove_btn .confirmation.active {
+	visibility: visible;
+	opacity: 1;
+}
+
 .book_card .manga-cover-cont {
 	display: flex;
 	flex-direction: column;
@@ -618,7 +665,7 @@ td.table-label {
 		position: absolute;
 		left: 0;
 		width: 340px;
-		z-index: 1;
+		z-index: 2;
 		border-right-style: solid;
 		border-width: 1px;
 		border-color: rgba(172, 172, 172, 0.459);

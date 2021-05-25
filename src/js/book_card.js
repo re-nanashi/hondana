@@ -28,7 +28,12 @@ export class BookCardCreate {
 		let base64Image = 'data:image/png;base64,' + image;
 
 		let cardHTML = `
-            <button id="card_remove_btn">&#x2715</button>
+            <button id="card_remove_btn">&#x2715
+                <span class="confirmation">
+                    削除しますか？<br>
+                    <a href="#" id="confirm">はい</a>
+                </span>
+            </button>
             <div class="manga-cover-cont">
                 <img
                     src=${base64Image}
