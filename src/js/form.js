@@ -147,6 +147,9 @@ class Form {
 			//Get form value
 			const url = document.querySelector('#address__url').value;
 
+			//Check URL
+			if (url === ``) return;
+
 			//Call loader
 			this.displayLoader();
 
@@ -183,6 +186,9 @@ class Form {
 		//      IF DATA IS ALREADY SAVE DO NOT ADD
 		//Event: Save/add data to library
 		document.querySelector('#save_btn').addEventListener('click', () => {
+			//Check data
+			if (currentData === {}) return;
+
 			//Instantiate book class
 			const book = new Book(currentData);
 
@@ -194,8 +200,7 @@ class Form {
 			//Update library list
 			LibraryUI.render();
 
-			//Clear fields and remove results
-			//Close modal
+			//Clear fields, remove results and close modal
 			currentData = {};
 			modalControl.closeForm();
 		});
