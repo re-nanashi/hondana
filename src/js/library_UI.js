@@ -1,88 +1,90 @@
-import { BookCardCreate } from './book_card.js';
+import { createBookCard } from './book_card.js';
 import { Storage } from './localStorage.js';
 
-//Class: UI Library
-class LibraryUI {
-	static on() {
-		//Event: Display
-		document.addEventListener('DOMContentLoaded', () => {
-			LibraryUI.displayListFromStorage();
-			this.render();
-		});
-	}
+//Module: Library UI
+const libraryUI = (function () {
+	return {
+		init() {
+			//Event: Display
+			document.addEventListener('DOMContentLoaded', () => {
+				this.displayListFromStorage();
+				this.renderEvents();
+			});
+		},
 
-	static render() {
-		//Event: Open remove card popup
-		const removeButton = document.querySelectorAll('#card_remove_btn');
+		renderEvents() {
+			//Event: Open remove card popup
+			const deleteButton = document.querySelectorAll('#card_remove_btn');
 
-		removeButton.forEach((button) => {
-			button.addEventListener('click', LibraryUI.removePopUpToggle);
-		});
+			deleteButton.forEach((button) => {
+				button.addEventListener('click', this.removePopUpToggle);
+			});
 
-		//Event: Confirm remove
-		const confirmRemove = document.querySelectorAll('#confirm');
+			//Event: Confirm remove/delete
+			const confirmDelete = document.querySelectorAll('#confirm');
 
-		confirmRemove.forEach((button) => {
-			button.addEventListener('click', LibraryUI.removeCard);
-		});
+			confirmDelete.forEach((button) => {
+				button.addEventListener('click', this.deleteCard);
+			});
 
-		//Event: Expand card
-		const readMoreBtn = document.querySelectorAll('.more');
+			//Event: Expand card
+			const readMoreBtn = document.querySelectorAll('.more');
 
-		readMoreBtn.forEach((button) => {
-			button.addEventListener('click', LibraryUI.expandCollapse);
-		});
-	}
+			readMoreBtn.forEach((button) => {
+				button.addEventListener('click', this.expandCollapse);
+			});
+		},
 
-	//Get manga from storage then display
-	static displayListFromStorage() {
-		const mangaList = Storage.getMangaList();
+		//Get manga from storage then display
+		displayListFromStorage() {
+			const mangaList = Storage.getMangaList();
 
-		mangaList.forEach((manga) => {
-			LibraryUI.addMangaToList(manga);
-		});
-	}
+			mangaList.forEach((manga) => {
+				this.addMangaToList(manga);
+			});
+		},
 
-	//Add and display manga to list
-	static addMangaToList(dataObj) {
-		const card = new BookCardCreate(dataObj);
+		//Add and Display manga to list
+		addMangaToList(dataObj) {
+			const card = createBookCard(dataObj);
 
-		const libraryContainer = document.querySelector('#book_library');
-		const bookCard = document.createElement('div');
+			const libraryContainer = document.querySelector('#book_library');
+			const bookItemCard = document.createElement('div');
 
-		bookCard.classList.add('book_card');
-		bookCard.innerHTML = card.createNewCard();
+			bookItemCard.classList.add('book_card');
+			bookItemCard.innerHTML = card.newCard();
 
-		libraryContainer.append(bookCard);
-	}
+			libraryContainer.append(bookItemCard);
+		},
 
-	static removePopUpToggle(e) {
-		const confirmationPopUp = e.target.querySelector('.confirmation');
+		//Display popup toggle
+		removePopUpToggle(e) {
+			const confirmationPopUp = e.target.querySelector('.confirmation');
 
-		if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
-	}
+			if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
+		},
 
-	static removeCard(e) {
-		//select .book_card element
-		const parentElement = e.target.parentElement.parentElement.parentElement;
-		const bookLibrary = document.querySelector('#book_library');
+		deleteCard(e) {
+			//Select .book_card element
+			const parentElement = e.target.parentElement.parentElement.parentElement;
+			const bookLibrary = document.querySelector('#book_library');
 
-		bookLibrary.removeChild(parentElement);
+			bookLibrary.removeChild(parentElement);
 
-		//Remove from storage
-		const title = parentElement.querySelector('.manga-title > a').textContent;
+			//Remove from storage
+			const title = parentElement.querySelector('.manga-title > a').textContent;
+			Storage.removeMangaFromStorage(title);
+		},
 
-		Storage.removeMangaFromStorage(title);
-	}
+		expandCollapse(e) {
+			//Select .book_card element
+			const parentElement = e.target.parentElement.parentElement.parentElement;
 
-	static expandCollapse(e) {
-		//select .book_card element
-		const parentElement = e.target.parentElement.parentElement.parentElement;
+			parentElement.classList.contains('expand')
+				? parentElement.classList.remove('expand')
+				: parentElement.classList.add('expand');
+		},
+	};
+})();
 
-		parentElement.classList.contains('expand')
-			? parentElement.classList.remove('expand')
-			: parentElement.classList.add('expand');
-	}
-}
-
-export { LibraryUI };
+export { libraryUI as UI };

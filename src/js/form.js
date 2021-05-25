@@ -1,249 +1,253 @@
-import { LibraryUI } from './library_UI.js';
+import { UI } from './library_UI.js';
 import { Storage } from './localStorage.js';
 
 /**
- * //Class: Manga/Manhua/Manhwa
+ * Function: Book/Manga/Manhua/Manhwa
  * @param {object} dataObject - with source as the key
  */
-class Book {
-	constructor(bookData) {
-		this.bookData = bookData;
-	}
+const book = () => {
+	let _bookData = {};
 
-	//Function: return an organized object data
-	static getBookDetails(data) {
-		//Get book source through the object key
-		//Convert array to string
-		let source = Object.keys(data).toString();
+	return {
+		//Function: set data
+		setBookData(dataObject) {
+			_bookData = dataObject;
+		},
 
-		return {
-			source: source,
-			...data[`${source}`],
-		};
-	}
-}
+		//Function: return an organized object data
+		getBookDetails(data = _bookData) {
+			//Get book source through the object key
+			//Convert array to string
+			let source = Object.keys(data).toString();
 
-//Class: Form
-class Form {
-	/**
-	 *
-	 * @param {string} url
-	 * @returns {object} from JSON
-	 */
-	static async getBookData(url) {
-		let res = (
-			await fetch(
-				`https://kiru-js.vercel.app/direct?url=${url}`,
-				{ method: 'GET' },
-				{ mode: 'no-cors' }
-			)
-		).json();
+			return {
+				source: source,
+				...data[`${source}`],
+			};
+		},
+	};
+};
 
-		let data = await res;
+//Module: Form
+const form = (function () {
+	'use strict';
 
-		return JSON.parse(data);
-	}
+	let resultsContainer = document.querySelector('#results-cont');
 
-	/**
-	 * //Function: Displays data to results container
-	 * @param {object} objData
-	 */
-	static displayData(objData) {
-		let bookData = Book.getBookDetails(objData);
-		let { source, title, image, author, status, latest } = bookData;
-		let base64Img = 'data:image/png;base64,' + image;
+	return {
+		/**
+		 *
+		 * @param {string} url
+		 * @returns {object} from JSON
+		 */
+		async getBookData(url) {
+			let response = (
+				await fetch(
+					`https://kiru-js.vercel.app/direct?url=${url}`,
+					{ method: 'GET' },
+					{ mode: 'no-cors' }
+				)
+			).json();
 
-		const bookLibraryCont = document.querySelector('#results-cont');
+			let data = await response;
 
-		//Checks if previous results is still displayed
-		this.removeResults();
+			return JSON.parse(data);
+		},
 
-		//Create new div
-		const bookCard = document.createElement('div');
-		bookCard.classList.add('result');
+		/**
+		 * //Function: Displays data to results container
+		 * @param {object} objData
+		 */
+		displayData(objData) {
+			//Instantiate book()
+			const Book = book();
 
-		//Results HTML template
-		bookCard.innerHTML = `
-		<div class="cover-image">
-			<img src=${base64Img} alt="book_cover" height="140px">
-		</div>
-		<div class="details">
-			<div class="title">
-				${title}
+			let bookData = Book.getBookDetails(objData);
+			let { source, title, image, author, status, latest } = bookData;
+			let base64Img = 'data:image/png;base64,' + image;
+
+			//Checks if previous results is still displayed
+			this.removeResults();
+
+			//Create new div
+			const bookCard = document.createElement('div');
+			bookCard.classList.add('result');
+
+			//Results HTML template
+			bookCard.innerHTML = `
+				<div class="cover-image">
+					<img src=${base64Img} alt="book_cover" height="140px">
+				</div>
+				<div class="details">
+					<div class="title">
+						${title}
+					</div>
+					<div class="source">
+						Source:
+						<i>${source}</i>
+					</div>
+					<div class="authors">
+						Author(s):
+						<i>${author}</i>
+					</div>
+					<div class="status">
+						Status:
+						<i>${status}</i>
+					</div>
+					<div class="latest">
+						Latest:
+						<i>${latest}</i>
+					</div>
+				</div>
+			`;
+
+			resultsContainer.append(bookCard);
+		},
+
+		displayLoader() {
+			//Checks if previous results is still displayed
+			this.removeResults();
+
+			const loaderDiv = document.createElement('div');
+			loaderDiv.innerHTML = `
+			<div class="loader">
+			  <div class="bounce1"></div>
+			  <div class="bounce2"></div>
+			  <div class="bounce3"></div>
 			</div>
-			<div class="source">
-				Source:
-				<i>${source}</i>
-			</div>
-			<div class="authors">
-				Author(s):
-				<i>${author}</i>
-			</div>
-			<div class="status">
-				Status:
-				<i>${status}</i>
-			</div>
-			<div class="latest">
-				Latest:
-				<i>${latest}</i>
-			</div>
-		</div>
-		`;
+			`;
 
-		bookLibraryCont.append(bookCard);
-	}
+			resultsContainer.append(loaderDiv);
+		},
 
-	static displayLoader() {
-		const bookLibraryCont = document.querySelector('#results-cont');
-
-		//Checks if previous results is still displayed
-		this.removeResults();
-
-		const loaderDiv = document.createElement('div');
-		loaderDiv.innerHTML = `
-		<div class="loader">
-		  <div class="bounce1"></div>
-		  <div class="bounce2"></div>
-		  <div class="bounce3"></div>
-		</div>
-		`;
-
-		bookLibraryCont.append(loaderDiv);
-	}
-
-	static removeResults() {
-		const bookLibraryCont = document.querySelector('#results-cont');
-
-		//Checks if previous results is still displayed
-		if (bookLibraryCont.childElementCount > 0) {
-			//Remove previous result
-			bookLibraryCont.firstElementChild.remove();
-		}
-	}
-
-	static displayError() {
-		const bookLibraryCont = document.querySelector('#results-cont');
-
-		const errorDiv = document.createElement('div');
-		errorDiv.innerHTML = `
-		<div class="error-result">エラーが発生しました。もう一度お試しください</div>
-		`;
-
-		bookLibraryCont.append(errorDiv);
-	}
-
-	static render() {
-		const form = document.querySelector('#manga-form');
-		const modalControl = this.formModalControllers();
-		let currentData = {};
-
-		//Event: render modal controllers
-		modalControl.render();
-
-		//Event: search
-		form.addEventListener('submit', async (e) => {
-			//Prevent actual submit and refresh
-			e.preventDefault();
-
-			//Get form value
-			const url = document.querySelector('#address__url').value;
-
-			//Check URL
-			if (url === ``) return;
-
-			//Call loader
-			this.displayLoader();
-
-			//Fetch for object data
-			async function fetchData() {
-				const data = await Form.getBookData(url);
-
-				//Remove loader
-				document.querySelector('#results-cont').firstElementChild.remove();
-
-				return data;
+		removeResults() {
+			//Checks if previous results is still displayed
+			if (resultsContainer.childElementCount > 0) {
+				//Remove previous result
+				resultsContainer.firstElementChild.remove();
 			}
+		},
 
-			fetchData()
-				.then((results) => {
-					//Stage current data
-					currentData = results;
+		displayError() {
+			const errorDiv = document.createElement('div');
+			errorDiv.innerHTML = `
+			<div class="error-result">エラーが発生しました。もう一度お試しください</div>
+			`;
 
-					//Display data to results container
-					this.displayData(results);
-				})
-				.catch((err) => {
-					const resultsContainer = document.querySelector('#results-cont');
+			resultsContainer.append(errorDiv);
+		},
+
+		formModalControllers() {
+			const formContent = document.getElementById('form_container');
+			const pageContent = document.getElementById('page_content');
+			const openButton = document.querySelector('.addBook_btn');
+			const closeButton = document.querySelector('#close_btn');
+
+			return {
+				openForm() {
+					formContent.classList.remove('hidden');
+					pageContent.classList.add('inactive');
+				},
+
+				closeForm() {
+					//Remove text input from form
+					document.querySelector('#address__url').value = '';
+
+					//Remove current result
+					form.removeResults();
+
+					//Close container
+					pageContent.classList.remove('inactive');
+					formContent.classList.add('hidden');
+				},
+
+				init() {
+					//Event: Open form
+					openButton.addEventListener('click', this.openForm);
+
+					//Even: Close form
+					closeButton.addEventListener('click', this.closeForm);
+				},
+			};
+		},
+
+		render() {
+			const searchForm = document.querySelector('#manga-form');
+			const modalControl = this.formModalControllers();
+			let currentData = {};
+
+			//Event: render modal controllers
+			modalControl.init();
+
+			//Event: search
+			searchForm.addEventListener('submit', async (e) => {
+				//Prevent actual submit and reload
+				e.preventDefault();
+
+				//Get form value
+				const url = document.querySelector('#address__url').value;
+
+				//Check URL
+				if (url === '') return;
+
+				//Call loader
+				this.displayLoader();
+
+				//Fetch for object data
+				async function fetchData() {
+					const data = await form.getBookData(url);
 
 					//Remove loader
 					resultsContainer.firstElementChild.remove();
 
-					//Display error message
-					this.displayError();
-				});
-		});
+					return data;
+				}
 
-		//NOTE: IF CURRENT DATA IS EMPTY DO NOT ADD
-		//      IF DATA IS ALREADY SAVE DO NOT ADD
-		//Event: Save/add data to library
-		document.querySelector('#save_btn').addEventListener('click', () => {
-			//Instantiate book class
-			const book = new Book(currentData);
-			let formattedData = Book.getBookDetails(book.bookData);
+				fetchData()
+					.then((response) => {
+						//Stage current data
+						currentData = response;
 
-			//Check data if empty
-			if (formattedData.source === '') return;
+						//Display data to results container
+						this.displayData(response);
+					})
+					.catch((err) => {
+						//Remove loader
+						resultsContainer.firstElementChild.remove();
 
-			//Display data to library
-			LibraryUI.addMangaToList(formattedData);
+						//Display error message
+						form.displayError();
+					});
+			});
 
-			//Add to storage
-			Storage.storeManga(formattedData);
+			//NOTE: IF CURRENT DATA IS EMPTY DO NOT ADD
+			//      IF DATA IS ALREADY SAVE DO NOT ADD
+			//Event: Save/add data to library
+			document.querySelector('#save_btn').addEventListener('click', () => {
+				//Instantiate book
+				const createBook = book();
+				createBook.setBookData(currentData);
+				let formattedData = createBook.getBookDetails();
 
-			//Update library list
-			LibraryUI.render();
+				//Check data if empty
+				if (formattedData.source === '') return;
 
-			//Clear fields and remove results
-			//Close modal
-			currentData = {};
-			modalControl.closeForm();
-		});
-	}
+				//Display data to library
+				UI.addMangaToList(formattedData);
 
-	//Function: handles modal events
-	static formModalControllers() {
-		const formContent = document.getElementById('form_container');
-		const pageContent = document.getElementById('page_content');
-		const openButton = document.querySelector('.addBook_btn');
-		const closeButton = document.querySelector('#close_btn');
+				//Add to storage
+				Storage.storeManga(formattedData);
 
-		return {
-			openForm() {
-				formContent.classList.remove('hidden');
-				pageContent.classList.add('inactive');
-			},
+				//Update library list
+				UI.renderEvents();
 
-			closeForm() {
-				//Remove text input from form
-				document.querySelector('#address__url').value = '';
+				//Clear fields and remove results
+				//Close modal
+				currentData = {};
+				modalControl.closeForm();
+			});
+		},
+	};
+})();
 
-				//Remove current result
-				Form.removeResults();
-
-				//Close container
-				pageContent.classList.remove('inactive');
-				formContent.classList.add('hidden');
-			},
-
-			render() {
-				//Event: Open form
-				openButton.addEventListener('click', this.openForm);
-
-				//Event: Close form
-				closeButton.addEventListener('click', this.closeForm);
-			},
-		};
-	}
-}
-
-export { Form, Book };
+export { book as Book, form as Form };

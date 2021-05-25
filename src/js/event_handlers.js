@@ -1,14 +1,14 @@
 import { sideBar, observeSideBar } from './side_bar.js';
 import { Form } from './form.js';
-import { LibraryUI } from './library_UI.js';
+import { UI } from './library_UI.js';
 
-//Event object
+//Module: Event listeners
 const Events = () => {
 	return {
-		run() {
+		render() {
 			this.renderSideBar();
 			this.renderModalFormController();
-			LibraryUI.on();
+			UI.init();
 		},
 
 		//Function: Deals with sidebar and updates bar events
