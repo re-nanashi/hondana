@@ -8,7 +8,7 @@ const Events = () => {
 		run() {
 			this.renderSideBar();
 			this.renderModalFormController();
-			LibraryUI.render();
+			LibraryUI.on();
 		},
 
 		//Function: Deals with sidebar and updates bar events

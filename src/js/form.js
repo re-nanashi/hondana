@@ -1,4 +1,5 @@
 import { LibraryUI } from './library_UI.js';
+import { Storage } from './localStorage.js';
 
 /**
  * //Class: Manga/Manhua/Manhwa
@@ -147,6 +148,9 @@ class Form {
 			//Get form value
 			const url = document.querySelector('#address__url').value;
 
+			//Check URL
+			if (url === ``) return;
+
 			//Call loader
 			this.displayLoader();
 
@@ -185,11 +189,16 @@ class Form {
 		document.querySelector('#save_btn').addEventListener('click', () => {
 			//Instantiate book class
 			const book = new Book(currentData);
+			let formattedData = Book.getBookDetails(book.bookData);
+
+			//Check data if empty
+			if (formattedData.source === '') return;
 
 			//Display data to library
-			LibraryUI.addMangaToList(book.bookData);
+			LibraryUI.addMangaToList(formattedData);
 
-			//add to storage < import from storage.js
+			//Add to storage
+			Storage.storeManga(formattedData);
 
 			//Update library list
 			LibraryUI.render();

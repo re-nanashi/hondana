@@ -1,8 +1,16 @@
-import { Book } from './form.js';
 import { BookCardCreate } from './book_card.js';
+import { Storage } from './localStorage.js';
 
 //Class: UI Library
 class LibraryUI {
+	static on() {
+		//Event: Display
+		document.addEventListener('DOMContentLoaded', () => {
+			LibraryUI.displayListFromStorage();
+			this.render();
+		});
+	}
+
 	static render() {
 		//Event: Open remove card popup
 		const removeButton = document.querySelectorAll('#card_remove_btn');
@@ -26,12 +34,17 @@ class LibraryUI {
 		});
 	}
 
-	static getListFromStorage() {}
+	static displayListFromStorage() {
+		const mangaList = Storage.getMangaList();
+
+		mangaList.forEach((manga) => {
+			LibraryUI.addMangaToList(manga);
+		});
+	}
 
 	//Add and display manga to list
 	static addMangaToList(dataObj) {
-		let data = Book.getBookDetails(dataObj);
-		const card = new BookCardCreate(data);
+		const card = new BookCardCreate(dataObj);
 
 		const libraryContainer = document.querySelector('#book_library');
 		const bookCard = document.createElement('div');
@@ -47,17 +60,23 @@ class LibraryUI {
 
 		if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
 	}
-	// //Add Confirmation delete pop up
+
 	static removeCard(e) {
 		//select .book_card element
 		const parentElement = e.target.parentElement.parentElement.parentElement;
 		const bookLibrary = document.querySelector('#book_library');
 
 		bookLibrary.removeChild(parentElement);
+
+		//Remove from storage
+		const title = parentElement.querySelector('.manga-title > a').textContent;
+
+		Storage.removeMangaFromStorage(title);
 	}
 	// 	static editManga() {}
 
 	static expandCollapse(e) {
+		console.log(e.target);
 		//select .book_card element
 		const parentElement = e.target.parentElement.parentElement.parentElement;
 
