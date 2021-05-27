@@ -4,11 +4,8 @@ const storage = (function () {
 		getMangaList() {
 			let mangaList;
 
-			if (localStorage.getItem('mangaList') === null) {
-				mangaList = [];
-			} else {
-				mangaList = JSON.parse(localStorage.getItem('mangaList'));
-			}
+			//Get localStorage
+			mangaList = JSON.parse(localStorage.getItem('mangaList')) || [];
 
 			//Default: sort alphabetical order
 			mangaList.sort((firstItem, secondItem) => {
