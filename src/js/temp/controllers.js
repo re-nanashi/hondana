@@ -2,6 +2,7 @@ import { Form } from './form.js';
 import { Book } from './book_card.js';
 import { Library } from './library.js';
 import { Storage } from './storage.js';
+import { createBookCard } from '../book_card.js';
 
 const controllers = (function () {
 	//Form Controller
@@ -10,8 +11,7 @@ const controllers = (function () {
 			let currentData;
 
 			//Render form events
-			const renderEvent = Form.bindEvents();
-			renderEvent.init();
+			Form.bindEvents.init();
 
 			//Event: search
 			Form.selector._searchForm.addEventListener('submit', async (e) => {
@@ -19,7 +19,7 @@ const controllers = (function () {
 				e.preventDefault();
 
 				//Get form value;
-				const url = document.querySelector('address__url').value;
+				const url = document.querySelector('#address__url').value;
 
 				//Check URL
 				if (url === '') return;
@@ -33,14 +33,14 @@ const controllers = (function () {
 						let book = Book(response);
 
 						//Stage current data
-						currentData = book;
+						currentData = Book(response);
 
 						//Display data to results container
 						Form.displayResults(book.createResultsData());
 					})
 					.catch((err) => {
 						//Remove loader
-						Form.resultsContainer.firstElementChild.remove();
+						Form.selector._resultsContainer.firstElementChild.remove();
 
 						//Display error message
 						Form.error();
@@ -60,7 +60,7 @@ const controllers = (function () {
 			//Event: Save/add data to library
 			Form.selector._saveData.addEventListener('click', () => {
 				//Check data if object
-				if (typeof currentData && currentData !== null) return;
+				if (typeof currentData !== `object`) return;
 
 				//Display data to library
 				Library.add(currentData.createLibraryItem());
@@ -72,8 +72,8 @@ const controllers = (function () {
 				_library.rebind();
 
 				//Clear fields and remove results
-				currentData = {};
-				Form.bindEvents.closeForm();
+				currentData = undefined;
+				Form.bindEvents.close();
 			});
 		},
 	};
@@ -81,8 +81,10 @@ const controllers = (function () {
 	//Library Controller
 	const _library = {
 		render: function () {
+			const book = Book();
+
 			//Initialize library and events
-			Library.init();
+			Library.init(Storage.data, book);
 
 			//Event: delete callback from storage
 			Library.bind.confirmDelete(Storage.delete);
@@ -90,7 +92,7 @@ const controllers = (function () {
 
 		rebind: function () {
 			//Rebind library events
-			Library.bind();
+			Library.bind.init();
 
 			//Event: delete callback from storage
 			Library.bind.confirmDelete(Storage.delete);

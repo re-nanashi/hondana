@@ -94,7 +94,7 @@ const book = (data) => {
 			return cardHTML;
 		},
 
-		createResultsData: (data = getBookDetails()) => {
+		createResultsData: (data = _getBookDetails()) => {
 			let { source, title, image, author, status, latest } = data;
 
 			let base64Image = 'data:image/png;base64,' + image;

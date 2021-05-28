@@ -14,15 +14,15 @@ const storage = (function () {
 		return mangaList;
 	};
 
-	const _storeManga = () => {
-		const mangaList = storage.getMangaList();
+	const _storeManga = (manga) => {
+		const mangaList = _getMangaList();
 		mangaList.push(manga);
 
 		localStorage.setItem('mangaList', JSON.stringify(mangaList));
 	};
 
 	const _removeMangaFromStorage = (title) => {
-		const mangaList = storage.getMangaList();
+		const mangaList = _getMangaList();
 
 		mangaList.forEach((manga, index) => {
 			//Remove whitespace

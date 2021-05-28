@@ -1,3 +1,5 @@
+import { Storage } from './storage.js';
+
 //Module: Library UI
 const library = (function () {
 	'use strict';
@@ -23,13 +25,15 @@ const library = (function () {
 	 * @param {function} book.createLibraryItem()
 	 */
 	//Get manga from storage then display
-	const _displayListFromStorage = (storage, callback) => {
-		const mangaList = storage;
+	const _displayListFromStorage = (storage, { createLibraryItem }) => {
+		const mangaList = storage();
 
 		//Unknown data structure
 		mangaList.forEach((manga) => {
-			addMangaToList(callback(manga));
+			addMangaToList(createLibraryItem(manga));
 		});
+
+		console.log(DOM._readMoreButton);
 	};
 
 	/**
@@ -51,10 +55,9 @@ const library = (function () {
 	 * @param {event} event
 	 * @param {function} removeManga from storage callback
 	 */
-	const deleteMangaFromList = (event, callback) => {
+	const deleteMangaFromList = (e, callback) => {
 		//Select .book_card element
-		const parentElement =
-			event.target.parentElement.parentElement.parentElement;
+		const parentElement = e.target.parentElement.parentElement.parentElement;
 
 		DOM._libraryContainer.removeChild(parentElement);
 
@@ -63,13 +66,13 @@ const library = (function () {
 		callback(title);
 	};
 
-	const _removePopUpToggle = (event) => {
-		const confirmationPopUp = event.target.querySelector('.confirmation');
+	const _removePopUpToggle = (e) => {
+		const confirmationPopUp = e.target.querySelector('.confirmation');
 
 		if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
 	};
 
-	const _expandCollapse = (event) => {
+	const _expandCollapse = (e) => {
 		//Select .book_card element
 		const parentElement = e.target.parentElement.parentElement.parentElement;
 
@@ -78,7 +81,7 @@ const library = (function () {
 			: parentElement.classList.add('expand');
 	};
 
-	const _bindLibraryEvents = () => {
+	const _bindLibraryEvents = (function () {
 		function _bindDeleteButton() {
 			//Event: Display remove card popup
 			DOM._deleteButton.forEach((button) => {
@@ -89,6 +92,7 @@ const library = (function () {
 		function _bindExpandButton() {
 			//Event: Expand card
 			DOM._readMoreButton.forEach((button) => {
+				console.log(button);
 				button.addEventListener('click', _expandCollapse);
 			});
 		}
@@ -109,7 +113,7 @@ const library = (function () {
 				_bindExpandButton();
 			},
 		};
-	};
+	})();
 
 	return {
 		init: init,

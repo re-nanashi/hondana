@@ -40,7 +40,7 @@ const form = (function () {
 
 	const _displayLoader = () => {
 		//Checks if previous results is still displayed
-		this.removeResults();
+		_removeResults();
 
 		const loaderDiv = document.createElement('div');
 		loaderDiv.innerHTML = `
@@ -51,7 +51,7 @@ const form = (function () {
 			</div>
 			`;
 
-		resultsContainer.append(loaderDiv);
+		DOM._resultsContainer.append(loaderDiv);
 	};
 
 	const _removeResults = () => {
@@ -71,13 +71,13 @@ const form = (function () {
 		DOM._resultsContainer.append(errorDiv);
 	};
 
-	const _bindModalFormEvents = () => {
-		function _openForm() {
+	const _bindModalFormEvents = (function () {
+		const _openForm = () => {
 			DOM._formContainer.classList.remove('hidden');
 			DOM._pageContainer.classList.add('inactive');
-		}
+		};
 
-		function _closeForm() {
+		const _closeForm = () => {
 			//Remove text input from form
 			document.querySelector('#address__url').value = '';
 
@@ -87,11 +87,12 @@ const form = (function () {
 			//Close container
 			DOM._formContainer.classList.add('hidden');
 			DOM._pageContainer.classList.remove('inactive');
-		}
+		};
 
 		return {
-			closeForm: _closeForm,
-			init() {
+			open: _openForm,
+			close: _closeForm,
+			init: function () {
 				//Event: Open form
 				DOM._openFormButton.addEventListener('click', _openForm);
 
@@ -99,7 +100,7 @@ const form = (function () {
 				DOM._closeFormButton.addEventListener('click', _closeForm);
 			},
 		};
-	};
+	})();
 
 	return {
 		selector: DOM,
