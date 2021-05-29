@@ -1,5 +1,3 @@
-import { init } from './event_handlers.js';
+import { LibraryApp } from './controllers.js';
 
-const page = init();
-
-page.render();
+LibraryApp.on();

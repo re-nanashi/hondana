@@ -1,21 +1,17 @@
-const book = (data) => {
-	let _bookData = data;
-
-	function _getBookDetails(data = _bookData) {
-		//Get book source through the object key
-		//Convert array to string
-		let source = Object.keys(data).toString();
-
-		return {
-			source: source,
-			...data[`${source}`],
-		};
-	}
+/**
+ * Function: create new book card
+ * @param {object} dataObject from JSON
+ */
+export const createBookCard = (data) => {
+	let _data = data;
 
 	return {
-		bookDetails: _getBookDetails,
-
-		createLibraryItem: (data = _getBookDetails()) => {
+		/**
+		 *
+		 * @param {object} dataObj from _data
+		 * @returns {string} html template literal
+		 */
+		newCard(dataObj = _data) {
 			let {
 				source,
 				link,
@@ -26,7 +22,7 @@ const book = (data) => {
 				author,
 				status,
 				description,
-			} = data;
+			} = dataObj;
 
 			let base64Image = 'data:image/png;base64,' + image;
 
@@ -93,42 +89,5 @@ const book = (data) => {
 
 			return cardHTML;
 		},
-
-		createResultsData: (data = _getBookDetails()) => {
-			let { source, title, image, author, status, latest } = data;
-
-			let base64Image = 'data:image/png;base64,' + image;
-
-			let resultsHTML = `
-                <div class="cover-image">
-                    <img src=${base64Image} alt="book_cover" height="140px">
-                </div>
-                <div class="details">
-                    <div class="title">
-                        ${title}
-                    </div>
-                    <div class="source">
-                        Source:
-                        <i>${source}</i>
-                    </div>
-                    <div class="authors">
-                        Author(s):
-                        <i>${author}</i>
-                    </div>
-                    <div class="status">
-                        Status:
-                        <i>${status}</i>
-                    </div>
-                    <div class="latest">
-                        Latest:
-                        <i>${latest}</i>
-                    </div>
-                </div>
-            `;
-
-			return resultsHTML;
-		},
 	};
 };
-
-export { book as Book };

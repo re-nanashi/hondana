@@ -4,18 +4,13 @@ import { Storage } from './storage.js';
 const library = (function () {
 	'use strict';
 
-	const DOM = {
-		_libraryContainer: document.querySelector('#book_library'),
-		_deleteButton: document.querySelectorAll('#card_remove_btn'),
-		_confirmDelete: document.querySelectorAll('#confirm'),
-		_readMoreButton: document.querySelectorAll('.more'),
-	};
+	const _libraryContainer = document.querySelector('#book_library');
 
-	const init = (storage, callback) => {
+	const init = (callback) => {
 		//Event: Display
 		document.addEventListener('DOMContentLoaded', () => {
-			_displayListFromStorage(storage, callback);
-			_bindLibraryEvents.init();
+			_displayListFromStorage(callback);
+			_bindLibraryEvents.render();
 		});
 	};
 
@@ -25,15 +20,13 @@ const library = (function () {
 	 * @param {function} book.createLibraryItem()
 	 */
 	//Get manga from storage then display
-	const _displayListFromStorage = (storage, { createLibraryItem }) => {
-		const mangaList = storage();
+	const _displayListFromStorage = ({ createLibraryItem }) => {
+		const mangaList = Storage.data();
 
 		//Unknown data structure
 		mangaList.forEach((manga) => {
 			addMangaToList(createLibraryItem(manga));
 		});
-
-		console.log(DOM._readMoreButton);
 	};
 
 	/**
@@ -47,7 +40,7 @@ const library = (function () {
 		bookItemCard.classList.add('book_card');
 		bookItemCard.innerHTML = data;
 
-		DOM._libraryContainer.append(bookItemCard);
+		_libraryContainer.append(bookItemCard);
 	};
 
 	/**
@@ -55,15 +48,15 @@ const library = (function () {
 	 * @param {event} event
 	 * @param {function} removeManga from storage callback
 	 */
-	const deleteMangaFromList = (e, callback) => {
+	const _deleteMangaFromList = (e) => {
 		//Select .book_card element
 		const parentElement = e.target.parentElement.parentElement.parentElement;
 
-		DOM._libraryContainer.removeChild(parentElement);
+		_libraryContainer.removeChild(parentElement);
 
 		//Remove from storage
 		const title = parentElement.querySelector('.manga-title > a').textContent;
-		callback(title);
+		Storage.delete(title);
 	};
 
 	const _removePopUpToggle = (e) => {
@@ -82,44 +75,39 @@ const library = (function () {
 	};
 
 	const _bindLibraryEvents = (function () {
-		function _bindDeleteButton() {
+		function render() {
 			//Event: Display remove card popup
-			DOM._deleteButton.forEach((button) => {
+			const deleteButton = document.querySelectorAll('#card_remove_btn');
+
+			deleteButton.forEach((button) => {
 				button.addEventListener('click', _removePopUpToggle);
 			});
-		}
 
-		function _bindExpandButton() {
 			//Event: Expand card
-			DOM._readMoreButton.forEach((button) => {
-				console.log(button);
+			const readMoreButton = document.querySelectorAll('.more');
+
+			readMoreButton.forEach((button) => {
 				button.addEventListener('click', _expandCollapse);
 			});
-		}
 
-		function _bindConfirmDelete(callback) {
 			//Event: confirm deletion
-			DOM._confirmDelete.forEach((button) => {
-				button.addEventListener('click', (e) => {
-					deleteMangaFromList(e, callback);
-				});
+			const confirmDelete = document.querySelectorAll('#confirm');
+
+			confirmDelete.forEach((button) => {
+				button.addEventListener('click', _deleteMangaFromList);
 			});
 		}
 
 		return {
-			confirmDelete: _bindConfirmDelete,
-			init() {
-				_bindDeleteButton();
-				_bindExpandButton();
-			},
+			render,
 		};
 	})();
 
 	return {
 		init: init,
-		bind: _bindLibraryEvents,
+		bind: _bindLibraryEvents.render,
 		add: addMangaToList,
-		delete: deleteMangaFromList,
+		delete: _deleteMangaFromList,
 	};
 })();
 

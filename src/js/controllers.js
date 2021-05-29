@@ -2,7 +2,7 @@ import { Form } from './form.js';
 import { Book } from './book_card.js';
 import { Library } from './library.js';
 import { Storage } from './storage.js';
-import { createBookCard } from '../book_card.js';
+import { Sidebar } from './sidebar.js';
 
 const controllers = (function () {
 	//Form Controller
@@ -69,7 +69,7 @@ const controllers = (function () {
 				Storage.add(currentData.bookDetails());
 
 				//Update Library list
-				_library.rebind();
+				Library.bind();
 
 				//Clear fields and remove results
 				currentData = undefined;
@@ -84,27 +84,17 @@ const controllers = (function () {
 			const book = Book();
 
 			//Initialize library and events
-			Library.init(Storage.data, book);
-
-			//Event: delete callback from storage
-			Library.bind.confirmDelete(Storage.delete);
-		},
-
-		rebind: function () {
-			//Rebind library events
-			Library.bind.init();
-
-			//Event: delete callback from storage
-			Library.bind.confirmDelete(Storage.delete);
+			Library.init(book);
 		},
 	};
 
 	return {
 		on: function () {
-			_form.render();
 			_library.render();
+			_form.render();
+			Sidebar.render();
 		},
 	};
 })();
 
-export { controllers as App };
+export { controllers as LibraryApp };
