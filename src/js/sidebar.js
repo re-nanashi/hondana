@@ -74,8 +74,8 @@ const sidebars = (function () {
 			rightSideBar.bind();
 
 			//Observe media queries
-			observeSideBar(leftSideBar.close, rightSideBar.close);
-			observeSideBar.on();
+			const observer = observeSideBar(leftSideBar.close, rightSideBar.close);
+			observer.on();
 		},
 	};
 })();
