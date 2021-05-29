@@ -2,6 +2,7 @@
 const sidebars = (function () {
 	'use strict';
 
+	//Factory: Sidebar
 	const sideBar = (sideBarID, openBtnID, closeBtnID) => {
 		const sideBar = document.getElementById(`${sideBarID}`);
 		const sideBarButton = document.getElementById(`${openBtnID}`);
