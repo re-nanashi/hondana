@@ -69,24 +69,23 @@ const book = (data) => {
                     <table class="text-info">
                         <tbody>
                             <tr>
-                                <td class="table-label">Source:</td>
+                                <td class="table-label">ソース:</td>
                                 <td class="table-value manga-source">
                                     <i>${source}</i>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-label manga-author">Author(s):</td>
+                                <td class="table-label manga-author">作者名:</td>
                                 <td class="table-value"><i>${author}</i></td>
                             </tr>
                             <tr>
-                                <td class="table-label manga-status">Status:</td>
+                                <td class="table-label manga-status">ステータス:</td>
                                 <td class="table-value"><i>${status}</i></td>
                             </tr>
                             <tr>
-                                <td class="table-label manga-latest">Latest:</td>
+                                <td class="table-label manga-latest">最新話:</td>
                                 <td class="table-value"><i>${latest}</i></td>
                             </tr>
-                            <tr></tr>
                         </tbody>
                     </table>
                     <div class="description">${description}</div>
@@ -113,19 +112,19 @@ const book = (data) => {
                         ${title}
                     </div>
                     <div class="source">
-                        Source:
+                        ソース:
                         <i>${source}</i>
                     </div>
                     <div class="authors">
-                        Author(s):
+                        作者名:
                         <i>${author}</i>
                     </div>
                     <div class="status">
-                        Status:
+                        ステータス:
                         <i>${status}</i>
                     </div>
                     <div class="latest">
-                        Latest:
+                        最新話:
                         <i>${latest}</i>
                     </div>
                 </div>
