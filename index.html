@@ -39,7 +39,23 @@
 					<div id="logo">
 						<img src="./src/img/logo.svg" alt="#" height="45px" " />
 					</div>
-					<div id="book_stat"></div>
+					<div id="book_stat_cont">
+						<div class="side_header">ライブラリ統計</div>
+						<div class="book_stat">
+							<div class="stat-cont">
+								<small class="stat-label">総合</small>
+								<b class="stat-value" data-total="books">150</b>
+							</div>
+							<div class="stat-cont">
+								<small class="stat-label">連載中</small>
+								<b class="stat-value" data-total="ongoing">150</b>
+							</div>
+							<div class="stat-cont">
+								<small class="stat-label">完結済み</small>
+								<b class="stat-value" data-total="completed">0</b>
+							</div>
+						</div>
+					</div>
 					<button class="addBook_btn">追加</button>
 				</div>
 			</section>
@@ -52,8 +68,19 @@
 					</div>
 
 					<div id="searchbar_container">
-						<input type="text" name="search" id="searchInput" placeholder="ライブラリー検索" autocomplete="off">
-						<img src="./src/img/search-icon.svg" alt="search" height="22px" draggable="false" >
+						<input
+							type="text"
+							name="search"
+							id="searchInput"
+							placeholder="ライブラリー検索"
+							autocomplete="off"
+						/>
+						<img
+							src="./src/img/search-icon.svg"
+							alt="search"
+							height="22px"
+							draggable="false"
+						/>
 					</div>
 
 					<div class="updates_btn_container">
@@ -146,7 +173,9 @@
 							<p>追加</p>
 						</div>
 					</div>
-					<div class="new_updates"></div>
+					<div class="new_updates">
+						<div class="side_header">更新通知</div>
+					</div>
 				</div>
 			</section>
 		</section>
