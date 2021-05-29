@@ -25,7 +25,7 @@ const library = (function () {
 
 		//Unknown data structure
 		mangaList.forEach((manga) => {
-			addMangaToList(createLibraryItem(manga));
+			_addMangaToList(createLibraryItem(manga));
 		});
 	};
 
@@ -34,7 +34,7 @@ const library = (function () {
 	 * @param {function} that returns library item template literal
 	 */
 	//Add and display manga to list
-	const addMangaToList = (data) => {
+	const _addMangaToList = (data) => {
 		const bookItemCard = document.createElement('div');
 
 		bookItemCard.classList.add('book_card');
@@ -74,8 +74,31 @@ const library = (function () {
 			: parentElement.classList.add('expand');
 	};
 
+	const _searchLibrary = () => {
+		let input, filter, books, a, textValue;
+		input = document.getElementById('searchInput');
+		filter = input.value.toUpperCase();
+		books = _libraryContainer.querySelectorAll('.book_card');
+
+		for (let i = 0; i < books.length; i++) {
+			a = books[i].querySelector('.manga-title > a');
+			textValue = a.textContent || a.innerText;
+
+			if (textValue.toUpperCase().indexOf(filter) > -1) {
+				books[i].style.display = '';
+			} else {
+				books[i].style.display = 'none';
+			}
+		}
+	};
+
 	const _bindLibraryEvents = (function () {
 		function render() {
+			//Event: Search library
+			const search = document.querySelector('#searchInput');
+
+			search.addEventListener('keyup', _searchLibrary);
+
 			//Event: Display remove card popup
 			const deleteButton = document.querySelectorAll('#card_remove_btn');
 
@@ -106,7 +129,7 @@ const library = (function () {
 	return {
 		init: init,
 		bind: _bindLibraryEvents.render,
-		add: addMangaToList,
+		add: _addMangaToList,
 		delete: _deleteMangaFromList,
 	};
 })();
