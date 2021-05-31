@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/re-nanashi/hondana/issues"
   },
-  "homepage": "https://github.com/re-nanashi/hondana#readme"
+  "homepage": "https://github.com/re-nanashi/hondana#readme",
+  "dependencies": {
+    "typescript": "^4.3.2"
+  }
 }
