@@ -1,5 +1,4 @@
 import * as Storage from '../store/store';
-import BookCard from './book';
 import { LibraryItem, LibraryImpl, Book, BookData } from '../shared/module';
 
 export class Library implements LibraryImpl {
@@ -56,12 +55,12 @@ export class Library implements LibraryImpl {
 			: parentElement.classList.add('expand');
 	};
 
+	/**
+	 * @constructor
+	 * @description contains library container
+	 */
 	constructor() {
 		this.libraryContainer = document.querySelector('#book_library');
-
-		//PROBLEM
-		//Explicitly bind events
-		this.bindLibraryEvents();
 	}
 
 	/**

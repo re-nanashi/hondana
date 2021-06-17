@@ -2,11 +2,12 @@ import BookCard from './book';
 import {
 	Book,
 	LibraryImpl,
-	BookFetchData,
+	Form,
 	ResultsDataItem,
+	Store,
 } from '../shared/module';
 
-export class SearchForm {
+export class SearchForm implements Form {
 	private currentData: Book | undefined;
 
 	library: LibraryImpl;
@@ -145,7 +146,7 @@ export class SearchForm {
 			});
 	};
 
-	private saveDataToLibrary = (library: LibraryImpl, store: any): void => {
+	private saveDataToLibrary = (library: LibraryImpl, store: Store): void => {
 		//Check there is current data
 		if (typeof this.currentData !== 'object') return;
 
@@ -163,7 +164,7 @@ export class SearchForm {
 		this.closeSearchForm();
 	};
 
-	bindFormEvents = (library: LibraryImpl, store: any): void => {
+	bindFormEvents = (library: LibraryImpl, store: Store): void => {
 		this.bindOpenCloseEvents();
 
 		//Event: search
