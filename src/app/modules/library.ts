@@ -10,7 +10,7 @@ class Library {
 	 * @param a callback that creates a library item
 	 */
 	private displayListFromStorage = ({ createLibraryItem }: Book): void => {
-		const mangaList: BookData[] = Storage._getMangaList();
+		const mangaList: BookData[] = Storage.getMangaList();
 
 		mangaList.forEach((manga: BookData): void => {
 			this.addMangaToList(createLibraryItem(manga));
@@ -82,7 +82,7 @@ class Library {
 		//Remove from storage
 		const title: string =
 			parentElement.querySelector('.manga-title > a').textContent;
-		Storage._removeMangaFromStorage(title);
+		Storage.removeMangaFromStorage(title);
 	};
 
 	/**

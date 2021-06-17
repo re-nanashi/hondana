@@ -1,9 +1,9 @@
-import { IBookDetails } from '../shared/interfaces/book.interface';
+import { BookData } from '../shared/interfaces/book.interface';
 
 //Create type[]
-export const _getMangaList = (): IBookDetails[] => {
+export const getMangaList = (): BookData[] => {
 	//Get data from localStorage
-	let mangaList: IBookDetails[] =
+	let mangaList: BookData[] =
 		JSON.parse(localStorage.getItem('mangaList')) || [];
 
 	//Default: sort alphabetical order
@@ -16,18 +16,18 @@ export const _getMangaList = (): IBookDetails[] => {
 };
 
 //Create type for manga
-export const _storeManga = (manga: IBookDetails): void => {
-	const mangaList: IBookDetails[] = _getMangaList();
+export const storeManga = (manga: BookData): void => {
+	const mangaList: BookData[] = getMangaList();
 	mangaList.push(manga);
 
 	localStorage.setItem('mangaList', JSON.stringify(mangaList));
 };
 
-export const _removeMangaFromStorage = (title: string): void => {
-	const mangaList: IBookDetails[] = _getMangaList();
+export const removeMangaFromStorage = (title: string): void => {
+	const mangaList: BookData[] = getMangaList();
 
 	//Create type
-	mangaList.forEach((manga: IBookDetails, index: number) => {
+	mangaList.forEach((manga: BookData, index: number) => {
 		//Use trim to remove whitespace
 		if (manga['title'].trim() === title.trim()) {
 			mangaList.splice(index, 1);
