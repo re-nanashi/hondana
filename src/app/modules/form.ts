@@ -48,11 +48,9 @@ export class SearchForm implements Form {
 	};
 
 	private displayData = (data: ResultsDataItem): void => {
-		//Create new div
 		const bookDetails: HTMLDivElement = document.createElement('div');
 		bookDetails.classList.add('result');
 
-		//Results HTML template
 		bookDetails.innerHTML = data;
 
 		//Append results to container
@@ -101,7 +99,6 @@ export class SearchForm implements Form {
 		//Remove text input from form
 		(<HTMLInputElement>document.querySelector('#address__url')).value = '';
 
-		//Remove current result
 		this.removeResults();
 
 		//Close container
@@ -126,7 +123,6 @@ export class SearchForm implements Form {
 		//Call loader
 		this.displayLoader();
 
-		//Fetch for object data
 		this.getBookData(url)
 			.then((response) => {
 				let book = new BookCard(response);
@@ -150,10 +146,8 @@ export class SearchForm implements Form {
 		//Check there is current data
 		if (typeof this.currentData !== 'object') return;
 
-		//Display data to library
 		library.addMangaToList(this.currentData.createLibraryItem());
 
-		//Add to storage
 		store.storeManga(this.currentData.getBookDetails());
 
 		//Update library list

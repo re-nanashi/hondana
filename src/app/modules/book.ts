@@ -6,7 +6,7 @@ export default class BookCard implements Book {
 	constructor(bookData?: BookFetchData) {
 		this.bookData = bookData;
 	}
-	//TODO! CHECK RETURN TYPE OF THIS FUNCTION
+
 	getBookDetails = (data: BookFetchData = this.bookData): BookData => {
 		//Get book source through the object key
 		//Convert array to string

@@ -1,6 +1,5 @@
 import { BookData } from '../shared/interfaces/book.interface';
 
-//Create type[]
 export const getMangaList = (): BookData[] => {
 	//Get data from localStorage
 	let mangaList: BookData[] =
