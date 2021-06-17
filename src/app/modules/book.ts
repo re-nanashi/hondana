@@ -1,14 +1,14 @@
-import { IBookDetails } from '../shared/interfaces/book.interface';
+import { Book, BookData } from '../shared/interfaces/book.interface';
 import { BookFetchData } from '../shared/types/book.type';
 
-export default class Book {
+export default class BookCard implements Book {
 	private bookData: BookFetchData;
 
 	constructor(bookData: BookFetchData) {
 		this.bookData = bookData;
 	}
 	//TODO! CHECK RETURN TYPE OF THIS FUNCTION
-	getBookDetails = (data: BookFetchData = this.bookData): IBookDetails => {
+	getBookDetails = (data: BookFetchData = this.bookData): BookData => {
 		//Get book source through the object key
 		//Convert array to string
 		let source = Object.keys(data).toString();
@@ -19,7 +19,7 @@ export default class Book {
 		};
 	};
 
-	createLibraryItem = (data: IBookDetails = this.getBookDetails()): string => {
+	createLibraryItem = (data: BookData = this.getBookDetails()): string => {
 		let {
 			source,
 			link,
@@ -97,9 +97,7 @@ export default class Book {
 		return cardHTML;
 	};
 
-	createResultsDataItem = (
-		data: IBookDetails = this.getBookDetails()
-	): string => {
+	createResultsDataItem = (data: BookData = this.getBookDetails()): string => {
 		let { source, title, image, author, status, latest } = data;
 
 		let base64Image = 'data:image/png;base64,' + image;

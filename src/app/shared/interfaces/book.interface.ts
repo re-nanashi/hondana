@@ -1,4 +1,6 @@
-export interface IBookDetails {
+import * as BookType from '../types/book.type';
+
+export interface BookData {
 	source: string;
 	link: string;
 	title: string;
@@ -8,4 +10,10 @@ export interface IBookDetails {
 	author: string;
 	status: string;
 	description: string;
+}
+
+export interface Book {
+	getBookDetails(data: BookType.BookFetchData): BookData;
+	createLibraryItem(data: BookData): BookType.LibraryItem;
+	createResultsDataItem(data: BookData): BookType.ResultsDataItem;
 }

@@ -10,3 +10,7 @@ export type BookFetchData = {
 		description: string;
 	};
 };
+
+export type LibraryItem = string;
+
+export type ResultsDataItem = string;
