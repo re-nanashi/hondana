@@ -1,8 +1,9 @@
 import * as Storage from '../store/store';
 import * as BookType from '../shared/types/book.type';
+import { LibraryImpl } from '../shared/interfaces/library.interface';
 import { Book, BookData } from '../shared/interfaces/book.interface';
 
-class Library {
+export class Library implements LibraryImpl {
 	private libraryContainer: HTMLElement;
 
 	/**
@@ -15,6 +16,26 @@ class Library {
 		mangaList.forEach((manga: BookData): void => {
 			this.addMangaToList(createLibraryItem(manga));
 		});
+	};
+
+	/**
+	 * @description removes manga from list and storage
+	 * @param e as a mouse click event
+	 */
+	private deleteMangaFromList = (e: MouseEvent): void => {
+		//Define clicked element
+		const eventTargetElement = e.target as HTMLElement;
+
+		//Select parent .book_card element
+		const parentElement: HTMLElement =
+			eventTargetElement.parentElement.parentElement.parentElement;
+
+		this.libraryContainer.removeChild(parentElement);
+
+		//Remove from storage
+		const title: string =
+			parentElement.querySelector('.manga-title > a').textContent;
+		Storage.removeMangaFromStorage(title);
 	};
 
 	private removePopUpToggle = (e: Event): void => {
@@ -63,26 +84,6 @@ class Library {
 		bookItemCard.innerHTML = data;
 
 		this.libraryContainer.append(bookItemCard);
-	};
-
-	/**
-	 * @description removes manga from list and storage
-	 * @param e as a mouse click event
-	 */
-	deleteMangaFromList = (e: MouseEvent): void => {
-		//Define clicked element
-		const eventTargetElement = e.target as HTMLElement;
-
-		//Select parent .book_card element
-		const parentElement: HTMLElement =
-			eventTargetElement.parentElement.parentElement.parentElement;
-
-		this.libraryContainer.removeChild(parentElement);
-
-		//Remove from storage
-		const title: string =
-			parentElement.querySelector('.manga-title > a').textContent;
-		Storage.removeMangaFromStorage(title);
 	};
 
 	/**
