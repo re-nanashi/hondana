@@ -31,11 +31,10 @@ export class SearchForm {
 		this.saveDataButton = document.querySelector('#save_btn');
 	}
 
-	private getBookData = async (url: string): Promise<BookFetchData> => {
+	private getBookData = async (url: string) => {
 		let response = (
 			await fetch(`https://kiru-js.vercel.app/direct?url=${url}`, {
 				method: 'GET',
-				mode: 'no-cors',
 			})
 		).json();
 
@@ -127,12 +126,12 @@ export class SearchForm {
 		this.displayLoader();
 
 		//Fetch for object data
-		await this.getBookData(url)
+		this.getBookData(url)
 			.then((response) => {
 				let book = new BookCard(response);
 
 				//Stage current data
-				this.currentData = new BookCard(response);
+				this.currentData = book;
 
 				//Display data to results container
 				this.displayData(book.createResultsDataItem());
@@ -146,18 +145,15 @@ export class SearchForm {
 			});
 	};
 
-	private saveDataToLibrary = (
-		library: LibraryImpl,
-		addToStoreHandler: any
-	): void => {
+	private saveDataToLibrary = (library: LibraryImpl, store: any): void => {
 		//Check there is current data
-		if (typeof this.currentData !== typeof BookCard) return;
+		if (typeof this.currentData !== 'object') return;
 
 		//Display data to library
 		library.addMangaToList(this.currentData.createLibraryItem());
 
 		//Add to storage
-		addToStoreHandler(this.currentData.getBookDetails());
+		store.storeManga(this.currentData.getBookDetails());
 
 		//Update library list
 		library.bindLibraryEvents();

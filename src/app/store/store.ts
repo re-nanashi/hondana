@@ -7,15 +7,13 @@ export const getMangaList = (): BookData[] => {
 		JSON.parse(localStorage.getItem('mangaList')) || [];
 
 	//Default: sort alphabetical order
-	//Create a type for Item
-	mangaList.sort((firstItem: any, secondItem: any) => {
-		return firstItem['title'].localCompare(secondItem['title']);
+	mangaList.sort((firstItem: BookData, secondItem: BookData) => {
+		return firstItem['title'].localeCompare(secondItem['title']);
 	});
 
 	return mangaList;
 };
 
-//Create type for manga
 export const storeManga = (manga: BookData): void => {
 	const mangaList: BookData[] = getMangaList();
 	mangaList.push(manga);
@@ -26,7 +24,6 @@ export const storeManga = (manga: BookData): void => {
 export const removeMangaFromStorage = (title: string): void => {
 	const mangaList: BookData[] = getMangaList();
 
-	//Create type
 	mangaList.forEach((manga: BookData, index: number) => {
 		//Use trim to remove whitespace
 		if (manga['title'].trim() === title.trim()) {

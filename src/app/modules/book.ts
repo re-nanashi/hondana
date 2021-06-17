@@ -3,7 +3,7 @@ import { Book, BookData, BookFetchData } from '../shared/module';
 export default class BookCard implements Book {
 	private bookData: BookFetchData;
 
-	constructor(bookData: BookFetchData) {
+	constructor(bookData?: BookFetchData) {
 		this.bookData = bookData;
 	}
 	//TODO! CHECK RETURN TYPE OF THIS FUNCTION
