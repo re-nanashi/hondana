@@ -1,5 +1,4 @@
-import { Book, BookData } from '../shared/interfaces/book.interface';
-import { BookFetchData } from '../shared/types/book.type';
+import { Book, BookData, BookFetchData } from '../shared/module';
 
 export default class BookCard implements Book {
 	private bookData: BookFetchData;

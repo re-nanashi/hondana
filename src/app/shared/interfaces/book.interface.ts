@@ -13,7 +13,7 @@ export interface BookData {
 }
 
 export interface Book {
-	getBookDetails(data: BookType.BookFetchData): BookData;
-	createLibraryItem(data: BookData): BookType.LibraryItem;
-	createResultsDataItem(data: BookData): BookType.ResultsDataItem;
+	getBookDetails(data?: BookType.BookFetchData): BookData;
+	createLibraryItem(data?: BookData): BookType.LibraryItem;
+	createResultsDataItem(data?: BookData): BookType.ResultsDataItem;
 }

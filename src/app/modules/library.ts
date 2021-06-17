@@ -1,7 +1,5 @@
 import * as Storage from '../store/store';
-import * as BookType from '../shared/types/book.type';
-import { LibraryImpl } from '../shared/interfaces/library.interface';
-import { Book, BookData } from '../shared/interfaces/book.interface';
+import { LibraryItem, LibraryImpl, Book, BookData } from '../shared/module';
 
 export class Library implements LibraryImpl {
 	private libraryContainer: HTMLElement;
@@ -77,7 +75,7 @@ export class Library implements LibraryImpl {
 	 * @description add and display manga to list
 	 * @param {string} data as library item templete literal string
 	 */
-	addMangaToList = (data: BookType.LibraryItem): void => {
+	addMangaToList = (data: LibraryItem): void => {
 		const bookItemCard: HTMLDivElement = document.createElement('div');
 
 		bookItemCard.classList.add('book_card');
