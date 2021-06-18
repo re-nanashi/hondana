@@ -1,8 +1,15 @@
 import * as Storage from '../store/store';
-import { LibraryItem, LibraryImpl, Book, BookData } from '../shared/module';
+import {
+	LibraryItem,
+	LibraryImpl,
+	Book,
+	BookData,
+	Statistics,
+} from '../shared/module';
 
 export class Library implements LibraryImpl {
 	private libraryContainer: HTMLElement;
+	libraryStats: Statistics;
 
 	/**
 	 * @description Get manga from storage then display
@@ -34,6 +41,9 @@ export class Library implements LibraryImpl {
 		const title: string =
 			parentElement.querySelector('.manga-title > a').textContent;
 		Storage.removeMangaFromStorage(title);
+
+		//Update stats
+		this.libraryStats.renderUpdatedStats();
 	};
 
 	private removePopUpToggle = (e: Event): void => {
@@ -61,18 +71,21 @@ export class Library implements LibraryImpl {
 	 */
 	constructor() {
 		this.libraryContainer = document.querySelector('#book_library');
+		this.libraryStats;
 	}
 
 	/**
 	 * @description initialize library
 	 * @param book class BookCreator
 	 */
-	init = (book: Book): void => {
+	init = (book: Book, bookStats: Statistics): void => {
 		//Event: Display
 		document.addEventListener('DOMContentLoaded', () => {
 			this.displayListFromStorage(book);
 			this.bindLibraryEvents();
 		});
+
+		this.libraryStats = bookStats;
 	};
 
 	/**

@@ -1,28 +1,32 @@
-import * as Storage from './store/store';
 import BookCard from './modules/book';
+import * as Storage from './store/store';
 import { Library } from './modules/library';
+import { BookStats } from './modules/stats';
 import { SearchForm } from './modules/form';
 import { renderSideBar } from './modules/sidebar';
-import { LibraryImpl, Form, Book, Store } from './shared/module';
+import { LibraryImpl, Form, Book, Store, Statistics } from './shared/module';
 
 export class App {
 	storage: Store;
 	library: LibraryImpl;
 	form: Form;
 	book: Book;
+	bookStats: Statistics;
 
 	constructor() {
 		this.storage = Storage;
 		this.library = new Library();
 		this.form = new SearchForm();
 		this.book = new BookCard();
+		this.bookStats = new BookStats();
 
 		//Explicitly render sidebar and events
 		renderSideBar();
+		this.bookStats.renderUpdatedStats();
 	}
 
 	init = (): void => {
-		this.library.init(this.book);
-		this.form.bindFormEvents(this.library, this.storage);
+		this.library.init(this.book, this.bookStats);
+		this.form.bindFormEvents(this.library, this.storage, this.bookStats);
 	};
 }

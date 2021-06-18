@@ -1,5 +1,6 @@
 import { LibraryImpl } from './library.interface';
+import { Store } from './storage.interface';
 
 export interface Form {
-	bindFormEvents(T: LibraryImpl, X: any): void;
+	bindFormEvents(arg1: LibraryImpl, arg2: Store, arg3: any): void;
 }

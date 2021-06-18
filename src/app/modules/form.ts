@@ -5,12 +5,11 @@ import {
 	Form,
 	ResultsDataItem,
 	Store,
+	Statistics,
 } from '../shared/module';
 
 export class SearchForm implements Form {
 	private currentData: Book | undefined;
-
-	library: LibraryImpl;
 
 	resultsContainer: HTMLElement;
 	formContainer: HTMLElement;
@@ -142,7 +141,11 @@ export class SearchForm implements Form {
 			});
 	};
 
-	private saveDataToLibrary = (library: LibraryImpl, store: Store): void => {
+	private saveDataToLibrary = (
+		library: LibraryImpl,
+		store: Store,
+		stats: Statistics
+	): void => {
 		//Check there is current data
 		if (typeof this.currentData !== 'object') return;
 
@@ -152,13 +155,18 @@ export class SearchForm implements Form {
 
 		//Update library list
 		library.bindLibraryEvents();
+		stats.renderUpdatedStats();
 
 		//Clear fields and remove results
 		this.currentData = undefined;
 		this.closeSearchForm();
 	};
 
-	bindFormEvents = (library: LibraryImpl, store: Store): void => {
+	bindFormEvents = (
+		library: LibraryImpl,
+		store: Store,
+		stats: Statistics
+	): void => {
 		this.bindOpenCloseEvents();
 
 		//Event: search
@@ -170,7 +178,7 @@ export class SearchForm implements Form {
 
 		//Event: save/add data to library
 		this.saveDataButton.addEventListener('click', (): void => {
-			this.saveDataToLibrary(library, store);
+			this.saveDataToLibrary(library, store, stats);
 		});
 	};
 }
