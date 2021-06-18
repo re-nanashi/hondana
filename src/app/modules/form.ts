@@ -151,9 +151,12 @@ export class SearchForm implements Form {
 		//Check there is current data
 		if (typeof this.currentData !== 'object') return;
 
-		library.addMangaToList(this.currentData.createLibraryItem());
+		//Check if there manga is already saved
+		const checkIfSaved = store.storeManga(this.currentData.getBookDetails());
 
-		store.storeManga(this.currentData.getBookDetails());
+		checkIfSaved === null
+			? null
+			: library.addMangaToList(this.currentData.createLibraryItem());
 
 		//Update library list
 		library.bindLibraryEvents();

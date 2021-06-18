@@ -1,4 +1,4 @@
-import { BookData } from '../shared/interfaces/book.interface';
+import { Book, BookData } from '../shared/interfaces/book.interface';
 
 export const getMangaList = (): BookData[] => {
 	//Get data from localStorage
@@ -13,11 +13,18 @@ export const getMangaList = (): BookData[] => {
 	return mangaList;
 };
 
-export const storeManga = (manga: BookData): void => {
+export const storeManga = (manga: BookData): void | null => {
 	const mangaList: BookData[] = getMangaList();
+
+	if (checkStore(mangaList, manga)) return null;
+
 	mangaList.push(manga);
 
 	localStorage.setItem('mangaList', JSON.stringify(mangaList));
+};
+
+const checkStore = (list: BookData[], manga: BookData): boolean => {
+	return list.some((item: BookData) => item['title'] === manga['title']);
 };
 
 export const removeMangaFromStorage = (title: string): void => {
