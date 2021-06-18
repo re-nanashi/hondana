@@ -4,6 +4,7 @@ import { Library } from './modules/library';
 import { BookStats } from './modules/stats';
 import { SearchForm } from './modules/form';
 import { renderSideBar } from './modules/sidebar';
+import { runLoader } from './shared/loader/loader';
 import { LibraryImpl, Form, Book, Store, Statistics } from './shared/module';
 
 export class App {
@@ -21,6 +22,7 @@ export class App {
 		this.bookStats = new BookStats();
 
 		//Explicitly render sidebar and events
+		runLoader();
 		renderSideBar();
 		this.bookStats.renderUpdatedStats();
 	}

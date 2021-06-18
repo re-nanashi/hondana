@@ -78,6 +78,8 @@ export class SearchForm implements Form {
 			//Remove previous results
 			this.resultsContainer.firstElementChild.remove();
 		}
+
+		this.currentData = undefined;
 	};
 
 	private displayError = (): void => {
