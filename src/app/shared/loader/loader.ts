@@ -22,7 +22,7 @@ function displayLoader(): void {
 export function runLoader(): void {
 	displayLoader();
 
-	setTimeout(removeLoader, 1500);
+	setTimeout(removeLoader, 1400);
 
 	function removeLoader(): void {
 		const containerDiv: HTMLDivElement = document.querySelector(
