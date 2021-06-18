@@ -288,8 +288,8 @@ form#manga-form {
 .side_bar_content #book_stat_cont {
 	background: rgba(21, 24, 28, 255);
 	position: absolute;
-	top: 70px;
-	height: 400px;
+	top: 95px;
+	height: 310px;
 	width: 100%;
 	border-radius: 25px;
 }
@@ -339,7 +339,7 @@ form#manga-form {
 
 .side_bar_content .addBook_btn {
 	position: absolute;
-	top: 500px;
+	top: 450px;
 	color: white;
 	background-color: rgba(217, 22, 95, 255);
 	height: 55px;
@@ -463,15 +463,16 @@ form#manga-form {
 	display: flex;
 	background: rgba(21, 24, 28, 255);
 	color: white;
-	height: 220px;
+	max-height: 220px;
 	border-bottom-style: solid;
 	border-width: 1px;
 	border-color: rgba(172, 172, 172, 0.178);
-	transition: 0.7s ease;
+	transition: max-height 0.9s ease-out;
 }
 
 #book_library .book_card.expand {
-	height: fit-content;
+	max-height: fit-content;
+	transition: max-height 0.9s ease-in;
 }
 
 #book_library .book_card:hover {
@@ -706,7 +707,7 @@ td.table-label {
 #updates_bar .updates_bar_content .new_updates {
 	background: rgba(21, 24, 28, 255);
 	position: absolute;
-	top: 80px;
+	top: 95px;
 	min-height: 400px;
 	width: 100%;
 	border-radius: 25px;
