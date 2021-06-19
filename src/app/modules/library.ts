@@ -15,7 +15,7 @@ export class Library implements LibraryImpl {
 	 * @description Get manga from storage then display
 	 * @param a callback that creates a library item
 	 */
-	private displayListFromStorage = ({ createLibraryItem }: Book): void => {
+	private _displayListFromStorage = ({ createLibraryItem }: Book): void => {
 		const mangaList: BookData[] = Storage.getMangaList();
 
 		mangaList.forEach((manga: BookData): void => {
@@ -27,7 +27,7 @@ export class Library implements LibraryImpl {
 	 * @description removes manga from list and storage
 	 * @param e as a mouse click event
 	 */
-	private deleteMangaFromList = (e: MouseEvent): void => {
+	private _deleteMangaFromList = (e: MouseEvent): void => {
 		//Define clicked element
 		const eventTargetElement = e.target as HTMLElement;
 
@@ -46,7 +46,7 @@ export class Library implements LibraryImpl {
 		this.libraryStats.renderUpdatedStats();
 	};
 
-	private removePopUpToggle = (e: Event): void => {
+	private _removePopUpToggle = (e: Event): void => {
 		const confirmationPopUp = (<HTMLElement>e.target).querySelector(
 			'.confirmation'
 		);
@@ -55,7 +55,7 @@ export class Library implements LibraryImpl {
 		if (confirmationPopUp) confirmationPopUp.classList.toggle('active');
 	};
 
-	private expandCollapse = (e: Event): void => {
+	private _expandCollapse = (e: Event): void => {
 		//Select parent .book_card element
 		const parentElement = (<HTMLElement>e.target).parentElement.parentElement
 			.parentElement;
@@ -81,7 +81,7 @@ export class Library implements LibraryImpl {
 	init = (book: Book, bookStats: Statistics): void => {
 		//Event: Display
 		document.addEventListener('DOMContentLoaded', () => {
-			this.displayListFromStorage(book);
+			this._displayListFromStorage(book);
 			this.bindLibraryEvents();
 		});
 
@@ -139,7 +139,7 @@ export class Library implements LibraryImpl {
 			document.querySelectorAll('#card_remove_btn');
 
 		deleteButton.forEach((button) => {
-			button.addEventListener('click', this.removePopUpToggle);
+			button.addEventListener('click', this._removePopUpToggle);
 		});
 
 		//Event: Expand card
@@ -147,7 +147,7 @@ export class Library implements LibraryImpl {
 			document.querySelectorAll('.more');
 
 		readMoreButton.forEach((button) => {
-			button.addEventListener('click', this.expandCollapse);
+			button.addEventListener('click', this._expandCollapse);
 		});
 
 		//Event: confirm deletion
@@ -155,7 +155,7 @@ export class Library implements LibraryImpl {
 			document.querySelectorAll('#confirm');
 
 		confirmDelete.forEach((button) => {
-			button.addEventListener('click', this.deleteMangaFromList);
+			button.addEventListener('click', this._deleteMangaFromList);
 		});
 	};
 }
