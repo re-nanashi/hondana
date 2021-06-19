@@ -7,14 +7,14 @@ class SideBarCreator implements SideBar {
 	private sideBarButton: HTMLElement;
 	private closeSideBarButton: HTMLElement;
 
-	private openSideBar = (): void => {
+	private _openSideBar = (): void => {
 		this.closeSideBarButton.classList.remove('hidden');
 		this.sideBar.classList.remove('hidden');
 	};
 
-	private bindSideBarEvents = (): void => {
+	private _bindSideBarEvents = (): void => {
 		//Event: open sidebar
-		this.sideBarButton.addEventListener('click', this.openSideBar);
+		this.sideBarButton.addEventListener('click', this._openSideBar);
 
 		//Event: close sidebar
 		this.closeSideBarButton.addEventListener('click', this.closeSideBar);
@@ -26,7 +26,7 @@ class SideBarCreator implements SideBar {
 		this.closeSideBarButton = document.querySelector(`${closeBtnID}`);
 
 		//Explicitly call sidebar events
-		this.bindSideBarEvents();
+		this._bindSideBarEvents();
 	}
 
 	public closeSideBar = (): void => {
