@@ -12,24 +12,17 @@ export class BookStats implements Statistics {
 		this.completedBooks = document.querySelector(`[data-total="completed"]`);
 	}
 
-	private totalBooksInStorage = (): number => {
+	private _totalBooksInStorage = (): number => {
 		const mangaList: BookData[] = getMangaList();
 
 		return mangaList.length;
 	};
 
-	private ongoingBooksInStorage = (): number => {
+	private _statusOfBooksInStorage = (
+		status: 'ongoing' | 'completed'
+	): number => {
 		let mangaList: BookData[] = getMangaList();
-		const ongoingRegEx: RegExp = /ongoing/i;
-
-		return mangaList.filter((manga: BookData) =>
-			ongoingRegEx.test(manga['status'])
-		).length;
-	};
-
-	private completedBooksInStorage = (): number => {
-		let mangaList: BookData[] = getMangaList();
-		const ongoingRegEx: RegExp = /completed/i;
+		const ongoingRegEx: RegExp = new RegExp(status, 'i');
 
 		return mangaList.filter((manga: BookData) =>
 			ongoingRegEx.test(manga['status'])
@@ -37,8 +30,12 @@ export class BookStats implements Statistics {
 	};
 
 	public renderUpdatedStats = (): void => {
-		this.totalBooks.textContent = `${this.totalBooksInStorage()}`;
-		this.ongoingBooks.textContent = `${this.ongoingBooksInStorage()}`;
-		this.completedBooks.textContent = `${this.completedBooksInStorage()}`;
+		this.totalBooks.textContent = `${this._totalBooksInStorage()}`;
+		this.ongoingBooks.textContent = `${this._statusOfBooksInStorage(
+			`ongoing`
+		)}`;
+		this.completedBooks.textContent = `${this._statusOfBooksInStorage(
+			'completed'
+		)}`;
 	};
 }
