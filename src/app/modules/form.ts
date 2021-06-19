@@ -6,6 +6,7 @@ import {
 	ResultsDataItem,
 	Store,
 	Statistics,
+	BookFetchData,
 } from '../shared/module';
 
 export class SearchForm implements Form {
@@ -31,7 +32,7 @@ export class SearchForm implements Form {
 		this.saveDataButton = document.querySelector('#save_btn');
 	}
 
-	private getBookData = async (url: string) => {
+	static getBookData = async (url: string): Promise<BookFetchData> => {
 		let response = (
 			await fetch(`https://kiru-js.vercel.app/direct?url=${url}`, {
 				method: 'GET',
@@ -39,9 +40,6 @@ export class SearchForm implements Form {
 		).json();
 
 		let data = await response;
-
-		//Remove loader when fetching
-		this.resultsContainer.firstElementChild.remove();
 
 		return JSON.parse(data);
 	};
@@ -112,6 +110,15 @@ export class SearchForm implements Form {
 		this.closeFormButton.addEventListener('click', this.closeSearchForm);
 	};
 
+	private fetchData = async (url: string): Promise<BookFetchData> => {
+		const data = await SearchForm.getBookData(url);
+
+		//Remove loader
+		this.resultsContainer.firstElementChild.remove();
+
+		return data;
+	};
+
 	private submitInputURL = async (): Promise<void> => {
 		//Get form value
 		const url: string = (<HTMLInputElement>(
@@ -124,7 +131,7 @@ export class SearchForm implements Form {
 		//Call loader
 		this.displayLoader();
 
-		this.getBookData(url)
+		this.fetchData(url)
 			.then((response) => {
 				let book = new BookCard(response);
 
