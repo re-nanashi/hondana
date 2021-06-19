@@ -44,7 +44,7 @@ export class SearchForm implements Form {
 		return JSON.parse(data);
 	};
 
-	private displayData = (data: ResultsDataItem): void => {
+	private _displayData = (data: ResultsDataItem): void => {
 		const bookDetails: HTMLDivElement = document.createElement('div');
 		bookDetails.classList.add('result');
 
@@ -54,9 +54,9 @@ export class SearchForm implements Form {
 		this.resultsContainer.append(bookDetails);
 	};
 
-	private displayLoader = (): void => {
+	private _displayLoader = (): void => {
 		//Checks if previous results are still displayed
-		this.removeResults();
+		this._removeResults();
 
 		const loaderDiv: HTMLDivElement = document.createElement('div');
 		loaderDiv.innerHTML = `
@@ -70,7 +70,7 @@ export class SearchForm implements Form {
 		this.resultsContainer.append(loaderDiv);
 	};
 
-	private removeResults = (): void => {
+	private _removeResults = (): void => {
 		//Check if previous results are still displayed
 		if (this.resultsContainer.childElementCount > 0) {
 			//Remove previous results
@@ -80,7 +80,7 @@ export class SearchForm implements Form {
 		this.currentData = undefined;
 	};
 
-	private displayError = (): void => {
+	private _displayError = (): void => {
 		const errorDiv: HTMLDivElement = document.createElement('div');
 		errorDiv.innerHTML = `
 			<div class="error-result">エラーが発生しました。もう一度お試しください</div>
@@ -89,28 +89,28 @@ export class SearchForm implements Form {
 		this.resultsContainer.append(errorDiv);
 	};
 
-	private openSearchForm = (): void => {
+	private _openSearchForm = (): void => {
 		this.formContainer.classList.remove('hidden');
 		this.pageContainer.classList.add('inactive');
 	};
 
-	private closeSearchForm = (): void => {
+	private _closeSearchForm = (): void => {
 		//Remove text input from form
 		(<HTMLInputElement>document.querySelector('#address__url')).value = '';
 
-		this.removeResults();
+		this._removeResults();
 
 		//Close container
 		this.formContainer.classList.add('hidden');
 		this.pageContainer.classList.remove('inactive');
 	};
 
-	private bindOpenCloseEvents = (): void => {
-		this.openFormButton.addEventListener('click', this.openSearchForm);
-		this.closeFormButton.addEventListener('click', this.closeSearchForm);
+	private _bindOpenCloseEvents = (): void => {
+		this.openFormButton.addEventListener('click', this._openSearchForm);
+		this.closeFormButton.addEventListener('click', this._closeSearchForm);
 	};
 
-	private fetchData = async (url: string): Promise<BookFetchData> => {
+	private _fetchData = async (url: string): Promise<BookFetchData> => {
 		const data = await SearchForm.getBookData(url);
 
 		//Remove loader
@@ -119,7 +119,7 @@ export class SearchForm implements Form {
 		return data;
 	};
 
-	private submitInputURL = async (): Promise<void> => {
+	private _submitInputURL = async (): Promise<void> => {
 		//Get form value
 		const url: string = (<HTMLInputElement>(
 			document.querySelector('#address__url')
@@ -129,9 +129,9 @@ export class SearchForm implements Form {
 		if (url === '') return;
 
 		//Call loader
-		this.displayLoader();
+		this._displayLoader();
 
-		this.fetchData(url)
+		this._fetchData(url)
 			.then((response) => {
 				let book = new BookCard(response);
 
@@ -139,18 +139,18 @@ export class SearchForm implements Form {
 				this.currentData = book;
 
 				//Display data to results container
-				this.displayData(book.createResultsDataItem());
+				this._displayData(book.createResultsDataItem());
 			})
 			.catch((err) => {
 				//Remove loader
 				this.resultsContainer.firstElementChild.remove();
 
-				this.displayError();
+				this._displayError();
 				console.log(`問題が発生しました: ${err}`);
 			});
 	};
 
-	private saveDataToLibrary = (
+	private _saveDataToLibrary = (
 		library: LibraryImpl,
 		store: Store,
 		stats: Statistics
@@ -171,7 +171,7 @@ export class SearchForm implements Form {
 
 		//Clear fields and remove results
 		this.currentData = undefined;
-		this.closeSearchForm();
+		this._closeSearchForm();
 	};
 
 	bindFormEvents = (
@@ -179,18 +179,18 @@ export class SearchForm implements Form {
 		store: Store,
 		stats: Statistics
 	): void => {
-		this.bindOpenCloseEvents();
+		this._bindOpenCloseEvents();
 
 		//Event: search
 		this.searchForm.addEventListener('submit', async (e: Event) => {
 			e.preventDefault();
 
-			await this.submitInputURL();
+			await this._submitInputURL();
 		});
 
 		//Event: save/add data to library
 		this.saveDataButton.addEventListener('click', (): void => {
-			this.saveDataToLibrary(library, store, stats);
+			this._saveDataToLibrary(library, store, stats);
 		});
 	};
 }
