@@ -11,6 +11,16 @@ export type BookFetchData = {
 	};
 };
 
+export type SpecificBookDetail =
+	| 'link'
+	| 'title'
+	| 'image'
+	| 'latest'
+	| 'latestLink'
+	| 'author'
+	| 'status'
+	| 'description';
+
 export type LibraryItem = string;
 
 export type ResultsDataItem = string;
