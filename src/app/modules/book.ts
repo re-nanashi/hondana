@@ -1,4 +1,9 @@
-import { Book, BookData, BookFetchData } from '../shared/module';
+import {
+	Book,
+	BookData,
+	BookFetchData,
+	SpecificBookDetail,
+} from '../shared/module';
 
 export default class BookCard implements Book {
 	private bookData: BookFetchData;
@@ -16,6 +21,22 @@ export default class BookCard implements Book {
 			source: source,
 			...data[`${source}`],
 		};
+	};
+
+	static getSpecificDetail = (
+		data: BookFetchData,
+		details: SpecificBookDetail[]
+	): Partial<BookData> => {
+		let source: string = Object.keys(data)[0];
+		let dataObject: Partial<BookData> = { ...data[`${source}`] };
+
+		let newDataObject: { [detail: string]: string } = {};
+
+		details.forEach((detail: SpecificBookDetail) => {
+			newDataObject[detail] = dataObject[detail];
+		});
+
+		return newDataObject;
 	};
 
 	createLibraryItem = (data: BookData = this.getBookDetails()): string => {
