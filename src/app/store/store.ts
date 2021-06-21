@@ -16,6 +16,7 @@ export const getMangaList = (): BookData[] => {
 export const storeManga = (manga: BookData): void | null => {
 	const mangaList: BookData[] = getMangaList();
 
+	//Check if manga already exists
 	if (checkStore(mangaList, manga)) return null;
 
 	mangaList.push(manga);
@@ -39,3 +40,22 @@ export const removeMangaFromStorage = (title: string): void => {
 
 	localStorage.setItem('mangaList', JSON.stringify(mangaList));
 };
+
+export function updateMangaList(
+	list: BookData[],
+	newUpdates: Partial<BookData>[]
+): void {
+	//Search for the key in list that has the same title in newUpdates
+	//change the list then update storage
+	newUpdates.forEach((manga: Partial<BookData>) => {
+		let key = list.findIndex((item: BookData) => {
+			return item['title'] === manga['title'];
+		});
+
+		list[key]['latest'] = manga['latest'];
+		list[key]['latestLink'] = manga['latestLink'];
+		list[key]['status'] = manga['status'];
+	});
+
+	localStorage.setItem('mangaList', JSON.stringify(list));
+}
