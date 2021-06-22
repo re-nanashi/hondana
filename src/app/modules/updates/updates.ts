@@ -1,10 +1,115 @@
+import BookCard from '../book';
 import { SearchForm } from '../form';
 import * as Storage from '../../store/store';
+import { BookData, BookFetchData } from '../../shared/module';
+import './updates.css';
 
-class UpdateCard {}
+class UpdateCardCreator {
+	private _data: Partial<BookData>;
 
-function checkForUpdates() {
-	const mangaList = Storage.getMangaList();
+	constructor(data: Partial<BookData>) {
+		this._data = data;
+	}
+
+	createCardTemplate = (): string => {
+		let { title, image, latest, latestLink } = this._data;
+		let base64Image = 'data:image/png;base64,' + image;
+
+		let cardHTML = `
+			<div class="img_cont">
+				<img src="${base64Image}" height="80px">
+			</div>
+			<div class="update_details">
+				<p>${title}</p>
+				<a href="${latestLink}">${latest}</a>
+			</div>
+		`;
+
+		return cardHTML;
+	};
+}
+
+function appendUpdate(newUpdates: Partial<BookData>[]): void {
+	const updatesContainer: HTMLElement =
+		document.querySelector('#updates_container');
+
+	//Remove no updates message
+	const noUpdateMsgDiv: HTMLDivElement = document.querySelector('#no-update');
+	if (updatesContainer.contains(noUpdateMsgDiv))
+		updatesContainer.removeChild(noUpdateMsgDiv);
+
+	newUpdates.forEach((manga: Partial<BookData>) => {
+		let card = new UpdateCardCreator(manga);
+
+		let updateCardDiv: HTMLDivElement = document.createElement('div');
+		updateCardDiv.classList.add('update_card');
+		updateCardDiv.innerHTML = card.createCardTemplate();
+
+		updatesContainer.append(updateCardDiv);
+	});
+}
+
+function removeUpdate(e: Event): void {
+	const updatesContainer: HTMLElement =
+		document.querySelector('#updates_container');
+	const updateCardDiv = (<HTMLElement>e.target).parentElement.parentElement;
+
+	updatesContainer.removeChild(updateCardDiv);
+}
+
+function throwNoNewUpdateMsg(): void {
+	const updatesContainer: HTMLElement =
+		document.querySelector('#updates_container');
+
+	const noUpdateMsgDiv: HTMLDivElement = document.createElement('div');
+	noUpdateMsgDiv.id = 'no-update';
+	noUpdateMsgDiv.textContent = '更新はありません';
+
+	updatesContainer.append(noUpdateMsgDiv);
+}
+
+function bindUpdateEvents(): void {
+	//Event: remove card when visited/click
+	const latestLink: NodeListOf<HTMLElement> = document.querySelectorAll(
+		'.update_details > a'
+	);
+
+	latestLink.forEach((link: HTMLElement): void => {
+		link.addEventListener('click', removeUpdate);
+	});
+}
+
+export async function checkForUpdates(): Promise<void> {
+	const mangaList: BookData[] = Storage.getMangaList();
+
+	try {
+		let newUpdates: Partial<BookData>[] = await Promise.all(
+			mangaList.map(async (manga: BookData): Promise<Partial<BookData>> => {
+				let mangaLink = manga['link'];
+				let data: BookFetchData = await SearchForm.getBookData(mangaLink);
+				let newData: Partial<BookData> = BookCard.getSpecificDetail(data, [
+					'title',
+					'image',
+					'latest',
+					'latestLink',
+					'status',
+				]);
+
+				return manga['latestLink'] !== newData['latestLink'] ? newData : null;
+			})
+		);
+
+		//Check if there are new updates on array
+		if (newUpdates.length !== 0) {
+			Storage.updateMangaList(mangaList, newUpdates);
+			appendUpdate(newUpdates);
+			bindUpdateEvents();
+		} else {
+			throwNoNewUpdateMsg();
+		}
+	} catch (err) {
+		throw new Error(err);
+	}
 }
 
 /**
