@@ -1,5 +1,5 @@
 import { BookData, Statistics } from '../shared/module';
-import { getMangaList } from '../store/store';
+import { getMangaList } from '../store/library.store';
 
 export class BookStats implements Statistics {
 	private totalBooks: HTMLElement;

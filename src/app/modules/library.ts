@@ -1,4 +1,4 @@
-import * as Storage from '../store/store';
+import * as Storage from '../store/library.store';
 import {
 	LibraryItem,
 	LibraryImpl,
