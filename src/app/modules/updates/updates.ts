@@ -38,6 +38,7 @@ function appendUpdate(newUpdates: Partial<BookData>[]): void {
 	if (updatesContainer.contains(noUpdateMsgDiv))
 		updatesContainer.removeChild(noUpdateMsgDiv);
 
+	//Appends new updates to container node
 	newUpdates.forEach((manga: Partial<BookData>) => {
 		let card = new UpdateCardCreator(manga);
 
@@ -50,9 +51,10 @@ function appendUpdate(newUpdates: Partial<BookData>[]): void {
 }
 
 function removeUpdate(e: Event): void {
+	const updateCardDiv = (<HTMLElement>e.target).parentElement.parentElement;
+
 	const updatesContainer: HTMLElement =
 		document.querySelector('#updates_container');
-	const updateCardDiv = (<HTMLElement>e.target).parentElement.parentElement;
 
 	updatesContainer.removeChild(updateCardDiv);
 }
@@ -83,6 +85,7 @@ export async function checkForUpdates(): Promise<void> {
 	const mangaList: BookData[] = Storage.getMangaList();
 
 	try {
+		//Call fetch on every manga on list
 		let newUpdates: Partial<BookData>[] = await Promise.all(
 			mangaList.map(async (manga: BookData): Promise<Partial<BookData>> => {
 				let mangaLink = manga['link'];
@@ -95,6 +98,7 @@ export async function checkForUpdates(): Promise<void> {
 					'status',
 				]);
 
+				//Check if there are updates by comparing new fetch data from old
 				return manga['latestLink'] !== newData['latestLink'] ? newData : null;
 			})
 		);
@@ -103,6 +107,8 @@ export async function checkForUpdates(): Promise<void> {
 		if (newUpdates.length !== 0) {
 			Storage.updateMangaList(mangaList, newUpdates);
 			appendUpdate(newUpdates);
+
+			//Bind events on new elements
 			bindUpdateEvents();
 		} else {
 			throwNoNewUpdateMsg();
