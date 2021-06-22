@@ -35,11 +35,7 @@ class SideBarCreator implements SideBar {
 	};
 }
 
-interface Observer {
-	renderInspection(): void;
-}
-
-class SideBarObserver implements Observer {
+class SideBarObserver {
 	private leftSideBar: SideBar;
 	private rightSideBar: SideBar;
 	private checkUpdatesBar: MediaQueryList;
@@ -52,10 +48,10 @@ class SideBarObserver implements Observer {
 		this.checkSideBar = window.matchMedia('(min-width: 1201px)');
 
 		//Explicitly call render
-		this.renderInspection();
+		this._renderInspection();
 	}
 
-	renderInspection = (): void => {
+	private _renderInspection = (): void => {
 		//Event: inspect updates bar
 		this.checkUpdatesBar.addEventListener('change', (e) => {
 			if (e.matches) this.rightSideBar.closeSideBar();
