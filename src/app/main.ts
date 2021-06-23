@@ -1,10 +1,11 @@
 import BookCard from './modules/book';
-import * as Storage from './store/store';
 import { Library } from './modules/library';
 import { BookStats } from './modules/stats';
 import { SearchForm } from './modules/form';
+import * as Storage from './store/library.store';
 import { renderSideBar } from './modules/sidebar';
 import { runLoader } from './shared/loader/loader';
+import { checkForUpdates } from './modules/updates/updates';
 import { LibraryImpl, Form, Book, Store, Statistics } from './shared/module';
 
 export class App {
@@ -25,10 +26,15 @@ export class App {
 		runLoader();
 		renderSideBar();
 		this.bookStats.renderUpdatedStats();
+		this.fetchForUpdates();
 	}
 
 	init = (): void => {
 		this.library.init(this.book, this.bookStats);
 		this.form.bindFormEvents(this.library, this.storage, this.bookStats);
 	};
+
+	async fetchForUpdates(): Promise<void> {
+		checkForUpdates();
+	}
 }
