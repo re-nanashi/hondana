@@ -1,4 +1,4 @@
-import { Book, BookData } from '../shared/interfaces/book.interface';
+import { BookData } from '../shared/interfaces/book.interface';
 
 export const getMangaList = (): BookData[] => {
 	//Get data from localStorage

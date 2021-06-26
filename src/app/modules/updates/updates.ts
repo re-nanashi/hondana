@@ -1,6 +1,6 @@
 import BookCard from '../book';
 import { SearchForm } from '../form';
-import * as Storage from '../../store/store';
+import * as Storage from '../../store/library.store';
 import { BookData, BookFetchData } from '../../shared/module';
 import './updates.css';
 
@@ -90,22 +90,26 @@ export async function checkForUpdates(): Promise<void> {
 
 	try {
 		//Call fetch on every manga on list
-		let newUpdates: Partial<BookData>[] = await Promise.all(
-			mangaList.map(async (manga: BookData): Promise<Partial<BookData>> => {
-				let mangaLink = manga['link'];
-				let data: BookFetchData = await SearchForm.getBookData(mangaLink);
-				let newData: Partial<BookData> = BookCard.getSpecificDetail(data, [
-					'title',
-					'image',
-					'latest',
-					'latestLink',
-					'status',
-				]);
+		let newUpdates: Partial<BookData>[] = (
+			await Promise.all(
+				mangaList.map(async (manga: BookData): Promise<Partial<BookData>> => {
+					let mangaLink = manga['link'];
+					let data: BookFetchData = await SearchForm.getBookData(mangaLink);
+					let newData: Partial<BookData> = BookCard.getSpecificDetail(data, [
+						'title',
+						'image',
+						'latest',
+						'latestLink',
+						'status',
+					]);
 
-				//Check if there are updates by comparing new fetch data from old
-				return manga['latestLink'] !== newData['latestLink'] ? newData : null;
-			})
-		);
+					//Check if there are updates by comparing new fetch data from old
+					return manga['latestLink'] !== newData['latestLink'] ? newData : null;
+				})
+			)
+		)
+			//Filters falsy values in the array
+			.filter(Boolean);
 
 		//Check if there are new updates on array
 		if (newUpdates.length !== 0) {
