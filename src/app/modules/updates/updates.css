@@ -38,3 +38,15 @@
 	font-size: 12px;
 	transition: 0.2s;
 }
+
+#updates_container {
+	min-height: 135px;
+	height: inherit;
+	color: rgba(217, 217, 217, 255);
+	font-size: 16px;
+	font-weight: 300;
+	display: flex;
+	/* flex-direction: column; */
+	/* justify-content: center; */
+	/* align-items: center; */
+}

@@ -63,7 +63,7 @@ function throwNoNewUpdateMsg(): void {
 
 	const noUpdateMsgDiv: HTMLDivElement = document.createElement('div');
 	noUpdateMsgDiv.id = 'no-update';
-	noUpdateMsgDiv.textContent = '更新はありません';
+	noUpdateMsgDiv.textContent = '更新はありません。';
 
 	updatesContainer.append(noUpdateMsgDiv);
 }
