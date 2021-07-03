@@ -1,25 +1,17 @@
 export type BookFetchData = {
-	[source: string]: {
-		link: string;
-		title: string;
-		image: string;
-		latest: string;
-		latestLink: string;
-		author: string;
-		status: string;
-		description: string;
-	};
+	[items: string]: BookFetchDataItem[];
 };
 
-export type SpecificBookDetail =
-	| 'link'
-	| 'title'
-	| 'image'
-	| 'latest'
-	| 'latestLink'
-	| 'author'
-	| 'status'
-	| 'description';
+export type BookFetchDataItem = {
+	kind: string;
+	id: string;
+	etag: string;
+	selfLink: string;
+	volumeInfo: { [key: string]: any };
+	saleInfo: { [key: string]: any };
+	accessInfo: { [key: string]: any };
+	searchInfo: { [key: string]: any };
+};
 
 export type LibraryItem = string;
 
