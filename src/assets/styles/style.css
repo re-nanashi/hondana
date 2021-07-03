@@ -339,7 +339,7 @@ form#manga-form {
 
 .side_bar_content .addBook_btn {
 	position: absolute;
-	top: 450px;
+	top: 430px;
 	color: white;
 	background-color: rgba(217, 22, 95, 255);
 	height: 55px;
@@ -360,7 +360,7 @@ form#manga-form {
 
 /*Middle: Main Content styles */
 #main_content {
-	flex: 2;
+	flex: 3;
 	border-left-style: solid;
 	border-right-style: solid;
 	border-width: 1.5px;
@@ -380,6 +380,10 @@ form#manga-form {
 
 #main_content #header .side_bar_btn_container {
 	cursor: pointer;
+	visibility: hidden;
+}
+
+#main_content #header .side_bar_btnm_container {
 	visibility: hidden;
 }
 
@@ -698,6 +702,10 @@ td.table-label {
 
 	/* Left side bar button */
 	#main_content #header .side_bar_btn_container {
+		visibility: visible;
+	}
+
+	#main_content #header .side_bar_btnm_container {
 		visibility: visible;
 	}
 }
