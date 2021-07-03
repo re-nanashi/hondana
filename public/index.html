@@ -12,10 +12,7 @@
 		<div id="form_container" class="hidden">
 			<button id="close_btn">&#x2715</button>
 			<h2>お気に入り作品リストに保存</h2>
-			<img src="../src/assets/img/logo.svg" alt="#" height="80px" />
-			<div id="results-cont">
-				<!--{ source, title, image, status, latest } = data will be appended here -->
-			</div>
+			<img src="../src/assets/img/logo.svg" alt="#" height="50px" />
 			<form id="manga-form">
 				<div class="search-group">
 					<input
@@ -23,11 +20,15 @@
 						name="url_address"
 						id="address__url"
 						class="search-form"
-						placeholder="作品のURLを入力してくだい"
+						placeholder="作品の書籍名や著者やISBNを入力してくだい"
 					/>
 					<button type="submit" id="manga_search_btn">検索</button>
 				</div>
 			</form>
+			<div id="results-cont">
+				<!--{ source, title, image, status, latest } = data will be appended here -->
+			</div>
+			
 			<button id="save_btn">保存</button>
 		</div>
 		<section id="page_content">
