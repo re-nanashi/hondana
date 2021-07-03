@@ -1,15 +1,16 @@
 import * as BookType from '../types/book.type';
 
 export interface BookData {
-	source: string;
-	link: string;
 	title: string;
-	image: string;
-	latest: string;
-	latestLink: string;
-	author: string;
-	status: string;
+	authors: string[];
+	publisher: string;
+	publishedDate: string;
 	description: string;
+	ISBN: { type: string; identifier: string }[];
+	categories: string[];
+	image: string;
+	infoLink: string;
+	webReaderLink: string;
 }
 
 export interface Book {
