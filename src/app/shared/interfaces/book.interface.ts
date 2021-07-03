@@ -8,6 +8,7 @@ export interface BookData {
 	description: string;
 	ISBN: { type: string; identifier: string }[];
 	categories: string[];
+	pageCount: number;
 	image: string;
 	infoLink: string;
 	webReaderLink: string;
