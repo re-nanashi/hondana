@@ -7,10 +7,13 @@ import {
 	Store,
 	Statistics,
 	BookFetchData,
+	BookFetchDataItem,
+	BookData,
 } from '../shared/module';
 
 export class SearchForm implements Form {
-	private currentData: Book | undefined;
+	//TODO currentData type
+	private currentData: BookData[] | any[];
 
 	resultsContainer: HTMLElement;
 	formContainer: HTMLElement;
@@ -21,7 +24,7 @@ export class SearchForm implements Form {
 	saveDataButton: HTMLElement;
 
 	constructor() {
-		this.currentData = undefined;
+		this.currentData = [];
 
 		this.resultsContainer = document.querySelector('#results-cont');
 		this.formContainer = document.getElementById('form_container');
@@ -32,23 +35,32 @@ export class SearchForm implements Form {
 		this.saveDataButton = document.querySelector('#save_btn');
 	}
 
-	static getBookData = async (url: string): Promise<BookFetchData> => {
-		let response = (
-			await fetch(`https://kiru-js.vercel.app/direct?url=${url}`, {
-				method: 'GET',
-			})
-		).json();
+	private _getBookData = async (keyword: string): Promise<BookFetchData> => {
+		try {
+			let response = (
+				await fetch(
+					`https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=3`
+				)
+			).json();
 
-		let data = await response;
+			let data = await response;
 
-		return JSON.parse(data);
+			return data['items'];
+		} catch (err) {
+			throw new Error(err);
+		}
 	};
 
+	//TODO
+	//DISPLAY MULTIPLE DATA TO VIEW
 	private _displayData = (data: ResultsDataItem): void => {
 		const bookDetails: HTMLDivElement = document.createElement('div');
 		bookDetails.classList.add('result');
 
 		bookDetails.innerHTML = data;
+
+		//Remove loader
+		this.resultsContainer.firstElementChild.remove();
 
 		//Append results to container
 		this.resultsContainer.append(bookDetails);
@@ -60,12 +72,12 @@ export class SearchForm implements Form {
 
 		const loaderDiv: HTMLDivElement = document.createElement('div');
 		loaderDiv.innerHTML = `
-			<div class="loader">
-			  <div class="bounce1"></div>
-			  <div class="bounce2"></div>
-			  <div class="bounce3"></div>
-			</div>
-		`;
+            <div class="loader">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+        `;
 
 		this.resultsContainer.append(loaderDiv);
 	};
@@ -77,14 +89,14 @@ export class SearchForm implements Form {
 			this.resultsContainer.firstElementChild.remove();
 		}
 
-		this.currentData = undefined;
+		this.currentData = [];
 	};
 
 	private _displayError = (): void => {
 		const errorDiv: HTMLDivElement = document.createElement('div');
 		errorDiv.innerHTML = `
-			<div class="error-result">エラーが発生しました。もう一度お試しください</div>
-		`;
+            <div class="error-result">エラーが発生しました。もう一度お試しください</div>
+        `;
 
 		this.resultsContainer.append(errorDiv);
 	};
@@ -110,36 +122,42 @@ export class SearchForm implements Form {
 		this.closeFormButton.addEventListener('click', this._closeSearchForm);
 	};
 
-	private _fetchData = async (url: string): Promise<BookFetchData> => {
-		const data = await SearchForm.getBookData(url);
-
-		//Remove loader
-		this.resultsContainer.firstElementChild.remove();
-
-		return data;
-	};
-
 	private _submitInputURL = async (): Promise<void> => {
 		//Get form value
-		const url: string = (<HTMLInputElement>(
+		const searchString: string = (<HTMLInputElement>(
 			document.querySelector('#address__url')
 		)).value;
 
 		//Check url if conditions are met
-		if (url === '') return;
+		if (searchString === '') return;
 
 		//Call loader
 		this._displayLoader();
 
-		this._fetchData(url)
+		//TODO
+		//TODO
+		/**
+		 * So at this point we can call fetch and have an array of objects that corresponds to data
+		 * we need to convert that data into BookData through bookcard class where are going to temporarily save the data ?
+		 * since we need to check later which one
+		 */
+		//Results object
+		this._getBookData(searchString)
 			.then((response) => {
-				let book = new BookCard(response);
+				// let book = new BookCard(response);
+				response.forEach((item: BookFetchDataItem) => {
+					let book = new BookCard(item);
+					this.currentData.push(book.getBookDetails());
+					console.log(book);
+					// this._displayData(book.createResultsDataItem());
+				});
+				// //Stage current data
+				// this.currentData = book;
 
-				//Stage current data
-				this.currentData = book;
+				//Response is an array of objects
 
-				//Display data to results container
-				this._displayData(book.createResultsDataItem());
+				// //Display data to results container
+				// this._displayData(book.createResultsDataItem());
 			})
 			.catch((err) => {
 				//Remove loader
@@ -150,31 +168,31 @@ export class SearchForm implements Form {
 			});
 	};
 
-	private _saveDataToLibrary = (
-		library: LibraryImpl,
-		store: Store,
-		stats: Statistics
-	): void => {
-		//Check there is current data
-		if (typeof this.currentData !== 'object') return;
+	// private _saveDataToLibrary = (
+	// 	library: LibraryImpl,
+	// 	store: Store,
+	// 	stats: Statistics
+	// ): void => {
+	// 	//Check there is current data
+	// 	if (typeof this.currentData !== 'object') return;
 
-		//Check if there manga is already saved
-		const checkIfSaved = store.storeManga(this.currentData.getBookDetails());
+	// 	//Check if there manga is already saved
+	// 	const checkIfSaved = store.storeManga(this.currentData.getBookDetails());
 
-		checkIfSaved === null
-			? null
-			: library.addMangaToList(this.currentData.createLibraryItem());
+	// 	checkIfSaved === null
+	// 		? null
+	// 		: library.addMangaToList(this.currentData.createLibraryItem());
 
-		//Update library list
-		library.bindLibraryEvents();
-		stats.renderUpdatedStats();
+	// 	//Update library list
+	// 	library.bindLibraryEvents();
+	// 	stats.renderUpdatedStats();
 
-		//Clear fields and remove results
-		this.currentData = undefined;
-		this._closeSearchForm();
-	};
+	// 	//Clear fields and remove results
+	// 	this.currentData = undefined;
+	// 	this._closeSearchForm();
+	// };
 
-	bindFormEvents = (
+	public bindFormEvents = (
 		library: LibraryImpl,
 		store: Store,
 		stats: Statistics
@@ -188,9 +206,9 @@ export class SearchForm implements Form {
 			await this._submitInputURL();
 		});
 
-		//Event: save/add data to library
-		this.saveDataButton.addEventListener('click', (): void => {
-			this._saveDataToLibrary(library, store, stats);
-		});
+		// //Event: save/add data to library
+		// this.saveDataButton.addEventListener('click', (): void => {
+		// 	this._saveDataToLibrary(library, store, stats);
+		// });
 	};
 }
