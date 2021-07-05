@@ -421,7 +421,7 @@ form#manga-form {
 }
 
 #main_content #header .side_bar_btnm_container {
-    visibility: hidden;
+    visibility: visible;
 }
 
 .user {
@@ -463,29 +463,37 @@ form#manga-form {
 }
 
 /*SEARCH BAR*/
-#main_content #header #searchbar_container {
+#main_content #header #search_bar_cont {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#main_content #header #searchbar {
+    position: relative;
     background: rgba(32, 35, 39, 255);
     display: flex;
     height: 50px;
     width: 100%;
-    max-width: 500px;
+    max-width: 330px;
     border: none;
     border-radius: 25px;
 }
 
-#searchbar_container #searchInput {
-    flex: 0.97;
+#searchbar #searchInput {
+    flex: 0.8;
     padding-left: 30px;
     background-color: inherit;
     color: white;
     border: transparent;
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
+    border-radius: inherit;
     outline: none;
 }
 
-#searchbar_container img {
+#searchbar img {
+    position: absolute;
     margin: 13px 9px 0 0;
+    right: 10px;
 }
 
 #main_content #main-container {
@@ -741,10 +749,6 @@ td.table-label {
     #main_content #header .side_bar_btn_container {
         visibility: visible;
     }
-
-    #main_content #header .side_bar_btnm_container {
-        visibility: visible;
-    }
 }
 
 /* Form container responsive design */
@@ -753,6 +757,10 @@ td.table-label {
         height: 100vh;
         width: 100vw;
         border-radius: 0px;
+    }
+
+    #main_content #header #search_bar_cont {
+        justify-content: center;
     }
 }
 
