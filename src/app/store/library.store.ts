@@ -1,61 +1,57 @@
-import { BookData } from '../shared/interfaces/book.interface';
+// import { BookData } from '../shared/interfaces/book.interface';
 
-export const getMangaList = (): BookData[] => {
-	//Get data from localStorage
-	let mangaList: BookData[] =
-		JSON.parse(localStorage.getItem('mangaList')) || [];
+export const getMangaList = (): any[] => {
+    //Get data from localStorage
+    let mangaList: any[] = JSON.parse(localStorage.getItem('mangaList')) || [];
 
-	//Default: sort alphabetical order
-	mangaList.sort((firstItem: BookData, secondItem: BookData) => {
-		return firstItem['title'].localeCompare(secondItem['title']);
-	});
+    //Default: sort alphabetical order
+    mangaList.sort((firstItem: any, secondItem: any) => {
+        return firstItem['title'].localeCompare(secondItem['title']);
+    });
 
-	return mangaList;
+    return mangaList;
 };
 
-export const storeManga = (manga: BookData): void | null => {
-	const mangaList: BookData[] = getMangaList();
+export const storeManga = (manga: any): void | null => {
+    const mangaList: any[] = getMangaList();
 
-	//Check if manga already exists
-	if (checkStore(mangaList, manga)) return null;
+    //Check if manga already exists
+    if (checkStore(mangaList, manga)) return null;
 
-	mangaList.push(manga);
+    mangaList.push(manga);
 
-	localStorage.setItem('mangaList', JSON.stringify(mangaList));
+    localStorage.setItem('mangaList', JSON.stringify(mangaList));
 };
 
-const checkStore = (list: BookData[], manga: BookData): boolean => {
-	return list.some((item: BookData) => item['title'] === manga['title']);
+const checkStore = (list: any[], manga: any): boolean => {
+    return list.some((item: any) => item['title'] === manga['title']);
 };
 
 export const removeMangaFromStorage = (title: string): void => {
-	const mangaList: BookData[] = getMangaList();
+    const mangaList: any[] = getMangaList();
 
-	mangaList.forEach((manga: BookData, index: number) => {
-		//Use trim to remove whitespace
-		if (manga['title'].trim() === title.trim()) {
-			mangaList.splice(index, 1);
-		}
-	});
+    mangaList.forEach((manga: any, index: number) => {
+        //Use trim to remove whitespace
+        if (manga['title'].trim() === title.trim()) {
+            mangaList.splice(index, 1);
+        }
+    });
 
-	localStorage.setItem('mangaList', JSON.stringify(mangaList));
+    localStorage.setItem('mangaList', JSON.stringify(mangaList));
 };
 
-export function updateMangaList(
-	list: BookData[],
-	newUpdates: Partial<BookData>[]
-): void {
-	//Search for the key in list that has the same title in newUpdates
-	//change the list then update storage
-	newUpdates.forEach((manga: Partial<BookData>) => {
-		let key = list.findIndex((item: BookData) => {
-			return item['title'] === manga['title'];
-		});
+export function updateMangaList(list: any[], newUpdates: Partial<any>[]): void {
+    //Search for the key in list that has the same title in newUpdates
+    //change the list then update storage
+    newUpdates.forEach((manga: Partial<any>) => {
+        let key = list.findIndex((item: any) => {
+            return item['title'] === manga['title'];
+        });
 
-		list[key]['latest'] = manga['latest'];
-		list[key]['latestLink'] = manga['latestLink'];
-		list[key]['status'] = manga['status'];
-	});
+        list[key]['latest'] = manga['latest'];
+        list[key]['latestLink'] = manga['latestLink'];
+        list[key]['status'] = manga['status'];
+    });
 
-	localStorage.setItem('mangaList', JSON.stringify(list));
+    localStorage.setItem('mangaList', JSON.stringify(list));
 }
