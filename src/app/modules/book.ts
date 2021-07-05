@@ -19,13 +19,14 @@ export default class BookCard implements Book {
         const volumeInfo = data['volumeInfo'];
         const accessInfo = data['accessInfo'];
 
-        let dataObject: BookData = {
+        let dataObject = {
+            selfLink: data.selfLink,
             title: volumeInfo['title'],
             authors: volumeInfo['authors'],
             publisher: volumeInfo['publisher'],
             publishedDate: volumeInfo['publishedDate'],
             description: volumeInfo['description'],
-            ISBN: volumeInfo['industryIdentifiers'],
+            isbn: volumeInfo['industryIdentifiers'],
             categories: volumeInfo['categories'],
             pageCount: volumeInfo['pageCount'],
             image: volumeInfo.imageLinks?.['thumbnail'],
@@ -50,9 +51,14 @@ export default class BookCard implements Book {
     public createResultsDataItem = (
         data: BookData = this.getBookDetails()
     ): ResultsDataItem => {
-        let { title, image, authors, categories, publisher } = data;
+        let { title, image, authors, isbn, pageCount } = data;
         const imageClass =
             image !== '該当なし' ? 'cover-image' : 'no-cover-image';
+        const isbnString = isbn.map((item) => {
+            if (item['type'].includes('ISBN')) return item['identifier'];
+
+            return `OTHER, ${item['identifier']}`;
+        });
 
         //Base img src according to imageClass
         let resultsHTML = `
@@ -69,14 +75,13 @@ export default class BookCard implements Book {
                         作者名:
                         <i>${authors}</i>
                     </div>
-                    <div class="authors">
-                        出版社:
-                        <i>${publisher}</i>
+                    <div class="ISBN">
+                        ISBN:
+                        <i>${isbnString}</i>
                     </div>
-                    <div class="category">
-                        カテゴリー:
-                        <i>${categories}</i>
-                    </div>
+                    <div class="pageCount">
+                        ページ数:
+                    <i>${pageCount}</i>
                 </div>
             `;
 
