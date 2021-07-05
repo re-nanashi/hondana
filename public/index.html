@@ -1,108 +1,113 @@
 <!DOCTYPE html>
 <html lang="jp">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../src/assets/styles/style.css" />
-		<link rel="icon" type="image/png" href="./favicon.png">
-		<title>Hondana</title>
-	</head>
-	<body>
-		<div id="form_container" class="hidden">
-			<button id="close_btn">&#x2715</button>
-			<h2>お気に入り作品リストに保存</h2>
-			<img src="../src/assets/img/logo.svg" alt="#" height="50px" />
-			<form id="manga-form">
-				<div class="search-group">
-					<input
-						type="text"
-						name="url_address"
-						id="address__url"
-						class="search-form"
-						placeholder="作品の書籍名や著者やISBNを入力してくだい"
-					/>
-					<button type="submit" id="manga_search_btn">検索</button>
-				</div>
-			</form>
-			<div id="results-cont">
-				<!--{ source, title, image, status, latest } = data will be appended here -->
-			</div>
-			
-			<button id="save_btn">保存</button>
-		</div>
-		<section id="page_content">
-			<section id="side_bar" class="section hidden">
-				<div class="close_sidebar_btn_container hidden">
-					<img src="../src/assets/img/open_button.svg" id="close_sidebar_btn" alt="#"
-					height="30px" " />
-				</div>
-				<div class="side_bar_content">
-					<div id="logo">
-						<img src="../src/assets/img/logo.svg" alt="#" height="45px" " />
-					</div>
-					<div id="book_stat_cont">
-						<div class="side_header">ライブラリ統計</div>
-						<div class="book_stat">
-							<div class="stat-cont">
-								<small class="stat-label">連載中</small>
-								<b class="stat-value" data-total="ongoing">150</b>
-							</div>
-							<div class="stat-cont">
-								<small class="stat-label">完結済み</small>
-								<b class="stat-value" data-total="completed">0</b>
-							</div>
-							<div class="stat-cont">
-								<small class="stat-label">総合</small>
-								<b class="stat-value" data-total="books">150</b>
-							</div>
-						</div>
-					</div>
-					<button class="addBook_btn">追加</button>
-					<div class="user">
-						<div id="user_img">
-							<p>追加</p>
-						</div>
-						<h1>ユーザーの本棚</h1>
-					</div>
-				</div>
-			</section>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../src/assets/styles/style.css" />
+        <link rel="icon" type="image/png" href="./favicon.png" />
+        <title>Hondana</title>
+    </head>
+    <body>
+        <div id="form_container" class="hidden">
+            <button id="close_btn">&#x2715</button>
+            <h2>お気に入り作品リストに保存</h2>
+            <img src="../src/assets/img/logo.svg" alt="#" height="50px" />
+            <form id="manga-form">
+                <div class="search-group">
+                    <input
+                        type="text"
+                        name="url_address"
+                        id="address__url"
+                        class="search-form"
+                        placeholder="作品の書籍名や著者やISBNを入力してくだい"
+                    />
+                    <button type="submit" id="manga_search_btn">検索</button>
+                </div>
+            </form>
+            <div id="results-cont">
+                <!--{ source, title, image, status, latest } = data will be appended here -->
+            </div>
 
-			<section id="main_content" class="section">
-				<div id="header">
-					<div class="side_bar_btn_container">
-						<img src="../src/assets/img/open_button.svg" id="side_bar_btn" alt="#"
-						height="30px" " />
-					</div>
+            <button id="save_btn">保存</button>
+        </div>
+        <section id="page_content">
+            <section id="side_bar" class="section hidden">
+                <div class="close_sidebar_btn_container hidden">
+                    <img src="../src/assets/img/open_button.svg"
+                    id="close_sidebar_btn" alt="#" height="30px" " />
+                </div>
+                <div class="side_bar_content">
+                    <div id="logo">
+                        <img src="../src/assets/img/logo.svg" alt="#"
+                        height="45px" " />
+                    </div>
+                    <div id="book_stat_cont">
+                        <div class="side_header">ライブラリ統計</div>
+                        <div class="book_stat">
+                            <div class="stat-cont">
+                                <small class="stat-label">連載中</small>
+                                <b class="stat-value" data-total="ongoing"
+                                    >150</b
+                                >
+                            </div>
+                            <div class="stat-cont">
+                                <small class="stat-label">完結済み</small>
+                                <b class="stat-value" data-total="completed"
+                                    >0</b
+                                >
+                            </div>
+                            <div class="stat-cont">
+                                <small class="stat-label">総合</small>
+                                <b class="stat-value" data-total="books">150</b>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="addBook_btn">追加</button>
+                    <div class="user">
+                        <div id="user_img">
+                            <p>追加</p>
+                        </div>
+                        <h1>ユーザーの本棚</h1>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="main_content" class="section">
+                <div id="header">
+                    <div class="side_bar_btn_container">
+                        <img src="../src/assets/img/open_button.svg"
+                        id="side_bar_btn" alt="#" height="30px" " />
+                    </div>
 
-					<div id="searchbar_container">
-						<input
-							type="text"
-							name="search"
-							id="searchInput"
-							placeholder="ライブラリー検索"
-							autocomplete="off"
-						/>
-						<img
-							src="../src/assets/img/search-icon.svg"
-							alt="search"
-							height="22px"
-							draggable="false"
-						/>
-					</div>
-					<div class="side_bar_btnm_container">
-						<img src="../src/assets/img/open_button.svg" alt="#"
-						height="30px" " />
-					</div>
-				</div>
+                    <div id="searchbar_container">
+                        <input
+                            type="text"
+                            name="search"
+                            id="searchInput"
+                            placeholder="ライブラリー検索"
+                            autocomplete="off"
+                        />
+                        <img
+                            src="../src/assets/img/search-icon.svg"
+                            alt="search"
+                            height="22px"
+                            draggable="false"
+                        />
+                    </div>
+                    <div class="side_bar_btnm_container">
+                        <img src="../src/assets/img/open_button.svg" alt="#"
+                        height="30px" " />
+                    </div>
+                </div>
 
-				<div id="main-container">
-					<div id="indicator">ライブラリー</div>
-					<section id="book_library">
-						<!--{ book card } = data will be appended here -->
-					</section>
-				</div>
-			</section>
-		</section>
-	</body>
+                <div id="main-container">
+                    <div id="indicator">ライブラリー</div>
+                    <section id="book_library">
+                        <!--{ book card } = data will be appended here -->
+                    </section>
+                </div>
+            </section>
+        </section>
+    </body>
 </html>
