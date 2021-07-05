@@ -7,7 +7,7 @@ export interface BookData {
     publisher: string;
     publishedDate: string;
     description: string;
-    ISBN: { type: string; identifier: string }[];
+    isbn: { type: string; identifier: string }[];
     categories: string[] | string;
     pageCount: number;
     image: string;
