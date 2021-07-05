@@ -57,7 +57,7 @@ export default class BookCard implements Book {
         const isbnString = isbn.map((item) => {
             if (item['type'].includes('ISBN')) return item['identifier'];
 
-            return `OTHER, ${item['identifier']}`;
+            return `他, ${item['identifier']}`;
         });
 
         //Base img src according to imageClass
