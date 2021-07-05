@@ -60,26 +60,51 @@ body {
 }
 
 #form_container > h2 {
-    margin-top: 40px;
-    font-size: 28px;
+    margin-top: 10px;
+    font-size: 25px;
     color: rgb(224, 224, 224);
 }
 
 #form_container > #results-cont {
-    height: 250px;
+    height: 280px;
     width: 80%;
     border: transparent;
     border-radius: 10px;
     background: rgba(21, 24, 28, 255);
     font-size: 12px;
     color: white;
+    padding: 15px 0px 15px 0px;
 }
 
 .result {
+    position: relative;
     display: flex;
     flex-direction: row;
     height: 125px;
     padding: 0px 5px 0px 10px;
+    cursor: pointer;
+}
+
+.result:hover {
+    background: rgb(33 37 41);
+    transition: 0.2s;
+}
+
+.result.active {
+    background: rgb(33 37 41);
+    transition: 0.2s;
+}
+
+.check-cont {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.checkmark {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .result > .cover-image {
@@ -136,7 +161,7 @@ form#manga-form {
     position: relative;
     background: rgba(21, 24, 28, 255);
     border: transparent;
-    height: 50px;
+    height: 40px;
     width: 100%;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -146,7 +171,7 @@ form#manga-form {
 }
 
 #manga-form #manga_search_btn {
-    height: 50px;
+    height: 40px;
     width: 50px;
     border: transparent;
     border-top-right-radius: 15px;
