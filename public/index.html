@@ -11,7 +11,7 @@
     <body>
         <div id="form_container" class="hidden">
             <button id="close_btn">&#x2715</button>
-            <h2>お気に入り作品リストに保存</h2>
+            <h2>お気に入り作品リストに登録</h2>
             <img src="../src/assets/img/logo.svg" alt="#" height="50px" />
             <form id="manga-form">
                 <div class="search-group">
@@ -29,7 +29,7 @@
                 <!--{ source, title, image, status, latest } = data will be appended here -->
             </div>
 
-            <button id="save_btn">保存</button>
+            <button id="save_btn">登録する</button>
         </div>
         <section id="page_content">
             <section id="side_bar" class="section hidden">
@@ -79,21 +79,22 @@
                         <img src="../src/assets/img/open_button.svg"
                         id="side_bar_btn" alt="#" height="30px" " />
                     </div>
-
-                    <div id="searchbar_container">
-                        <input
-                            type="text"
-                            name="search"
-                            id="searchInput"
-                            placeholder="ライブラリー検索"
-                            autocomplete="off"
-                        />
-                        <img
-                            src="../src/assets/img/search-icon.svg"
-                            alt="search"
-                            height="22px"
-                            draggable="false"
-                        />
+                    <div id="search_bar_cont">
+                        <div id="searchbar">
+                            <input
+                                type="text"
+                                name="search"
+                                id="searchInput"
+                                placeholder="ライブラリー検索"
+                                autocomplete="off"
+                            />
+                            <img
+                                src="../src/assets/img/search-icon.svg"
+                                alt="search"
+                                height="22px"
+                                draggable="false"
+                            />
+                        </div>
                     </div>
                     <div class="side_bar_btnm_container">
                         <img src="../src/assets/img/open_button.svg" alt="#"
