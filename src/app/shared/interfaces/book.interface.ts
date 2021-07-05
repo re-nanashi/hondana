@@ -1,6 +1,7 @@
 import * as BookType from '../types/book.type';
 
 export interface BookData {
+    selfLink: string;
     title: string;
     authors: string[];
     publisher: string;
