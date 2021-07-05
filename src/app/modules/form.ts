@@ -1,4 +1,5 @@
 import BookCard from './book';
+import * as anime from 'animejs';
 import {
     Book,
     LibraryImpl,
@@ -12,7 +13,6 @@ import {
 } from '../shared/module';
 
 export class SearchForm implements Form {
-    //TODO currentData type
     private currentData: BookData[] | any[];
 
     resultsContainer: HTMLElement;
@@ -39,7 +39,7 @@ export class SearchForm implements Form {
         try {
             let response = (
                 await fetch(
-                    `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=3`
+                    `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=2`
                 )
             ).json();
 
@@ -51,16 +51,11 @@ export class SearchForm implements Form {
         }
     };
 
-    //TODO
-    //DISPLAY MULTIPLE DATA TO VIEW
     private _displayData = (data: ResultsDataItem): void => {
         const bookDetails: HTMLDivElement = document.createElement('div');
         bookDetails.classList.add('result');
 
         bookDetails.innerHTML = data;
-
-        //Remove loader
-        this.resultsContainer.firstElementChild.remove();
 
         //Append results to container
         this.resultsContainer.append(bookDetails);
@@ -83,9 +78,8 @@ export class SearchForm implements Form {
     };
 
     private _removeResults = (): void => {
-        //Check if previous results are still displayed
-        if (this.resultsContainer.childElementCount > 0) {
-            //Remove previous results
+        //Remove previous results by looping while firstEleChild is exists
+        while (this.resultsContainer.firstElementChild) {
             this.resultsContainer.firstElementChild.remove();
         }
 
@@ -122,7 +116,34 @@ export class SearchForm implements Form {
         this.closeFormButton.addEventListener('click', this._closeSearchForm);
     };
 
-    private _submitInputURL = async (): Promise<void> => {
+    private _search = async (url: string): Promise<void> => {
+        try {
+            const response = await this._getBookData(url);
+
+            console.log(response);
+            //Remove loader
+            this.resultsContainer.firstElementChild.remove();
+
+            //Stage and display data
+            response.forEach((item: BookFetchDataItem) => {
+                let book: Book = new BookCard(item);
+
+                this.currentData.push(book.getBookDetails());
+
+                this._displayData(book.createResultsDataItem());
+            });
+
+            this._selectBookToSave();
+        } catch (err) {
+            //Remove loader
+            this.resultsContainer.firstElementChild.remove();
+
+            this._displayError();
+            console.log(`問題が発生しました: ${err}`);
+        }
+    };
+
+    private _submitInputURL = (): void => {
         //Get form value
         const searchString: string = (<HTMLInputElement>(
             document.querySelector('#address__url')
@@ -134,38 +155,90 @@ export class SearchForm implements Form {
         //Call loader
         this._displayLoader();
 
-        //TODO
-        //TODO
-        /**
-         * So at this point we can call fetch and have an array of objects that corresponds to data
-         * we need to convert that data into BookData through bookcard class where are going to temporarily save the data ?
-         * since we need to check later which one
-         */
-        //Results object
-        this._getBookData(searchString)
-            .then((response) => {
-                // let book = new BookCard(response);
-                response.forEach((item: BookFetchDataItem) => {
-                    let book = new BookCard(item);
-                    this.currentData.push(book.getBookDetails());
-                    console.log(book);
-                    // this._displayData(book.createResultsDataItem());
-                });
-                // //Stage current data
-                // this.currentData = book;
+        this._search(searchString);
+    };
 
-                //Response is an array of objects
+    private _selectAnimation = (parentNode: HTMLElement): void => {
+        let selectTimeline = (<any>anime).default.timeline({
+            direction: 'alternate',
+            loop: false,
+        });
 
-                // //Display data to results container
-                // this._displayData(book.createResultsDataItem());
+        selectTimeline
+            .add({
+                targets: parentNode.querySelector('.checkmark'),
+                scale: [
+                    { value: [0, 1], duration: 300, easing: 'easeOutQuad' },
+                ],
             })
-            .catch((err) => {
-                //Remove loader
-                this.resultsContainer.firstElementChild.remove();
-
-                this._displayError();
-                console.log(`問題が発生しました: ${err}`);
+            .add({
+                targets: parentNode.querySelector('.check'),
+                strokeDashoffset: {
+                    value: [(<any>anime).default.setDashoffset, 0],
+                    duration: 350,
+                    delay: 100,
+                    easing: 'easeOutQuart',
+                },
+                translateX: {
+                    value: [6, 0],
+                    duration: 350,
+                    delay: 100,
+                    easing: 'easeOutQuart',
+                },
+                translateY: {
+                    value: [-2, 0],
+                    duration: 350,
+                    delay: 100,
+                    easing: 'easeOutQuart',
+                },
+                offset: 0,
             });
+    };
+
+    private _appendAnimation = <T extends HTMLElement>(resultNode: T): void => {
+        const parentElement: T = resultNode;
+        const selectDiv: HTMLDivElement = document.createElement('div');
+        selectDiv.classList.add('check-cont');
+        selectDiv.innerHTML = `
+            <svg
+                class="checkmark"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 32 32"
+            >
+                <circle class="circle" cx="16" cy="16" r="16" fill="#d9165f" />
+                <path
+                    class="check"
+                    d="M9 16l5 5 9-9"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                />
+            </svg>
+        `;
+
+        if (!parentElement.classList.contains('active')) {
+            parentElement.classList.add('active');
+            parentElement.append(selectDiv);
+            this._selectAnimation(parentElement);
+        } else {
+            this._selectAnimation(parentElement);
+            parentElement.classList.remove('active');
+            parentElement.querySelector('.check-cont').remove();
+        }
+    };
+
+    private _selectBookToSave = (): void => {
+        const results: NodeListOf<Node> =
+            document.querySelector('#results-cont').childNodes;
+
+        results.forEach((result) => {
+            result.addEventListener('click', (e: MouseEvent) => {
+                this._appendAnimation(e.currentTarget as HTMLElement);
+            });
+        });
     };
 
     // private _saveDataToLibrary = (
