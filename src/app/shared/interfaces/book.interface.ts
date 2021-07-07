@@ -22,6 +22,6 @@ export interface LibraryBookData extends BookData {
 
 export interface Book {
   getBookDetails: (data?: BookType.BookFetchDataItem) => BookData;
-  // createLibraryItem(data?: BookData): BookType.LibraryItem;
   createResultsDataItem: (data?: BookData) => BookType.ResultsDataItem;
+  createLibraryItem(status: Status, data?: BookData): BookType.LibraryItem;
 }
