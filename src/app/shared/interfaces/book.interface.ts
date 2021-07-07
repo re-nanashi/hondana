@@ -8,11 +8,11 @@ export interface BookData {
   publisher: string;
   publishedDate: string;
   description: string;
-  isbn: { type: string; identifier: string }[];
+  isbn: { type: string; identifier: string }[] | any;
   categories: string[] | string;
   pageCount: number;
   image: string;
-  infoLink: string;
+  previewLink: string;
   webReaderLink: string;
 }
 
