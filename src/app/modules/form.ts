@@ -1,6 +1,7 @@
 import { statusButton } from '../shared/status_button/button';
 import BookCard from './book';
 import * as anime from 'animejs';
+
 import {
   Book,
   LibraryImpl,
@@ -50,9 +51,32 @@ export class SearchForm implements Form {
         )
       ).json();
 
+      let data = (await response)['items'];
+
+      let updatedData: BookFetchData = await Promise.all(
+        data.map(async (item: BookFetchDataItem) => {
+          let newData = await SearchForm._getUpdatedData(item.selfLink);
+
+          return newData;
+        })
+      );
+
+      console.log(updatedData);
+      return updatedData;
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  static _getUpdatedData = async (
+    selfLink: string
+  ): Promise<BookFetchDataItem> => {
+    try {
+      let response = (await fetch(selfLink)).json();
+
       let data = await response;
 
-      return data['items'];
+      return data;
     } catch (err) {
       throw new Error(err);
     }
@@ -333,7 +357,7 @@ export class SearchForm implements Form {
       );
 
       if (checkIfSaved !== null) {
-        library.addMangaToList(
+        library.addBookToList(
           bookToSave.createLibraryItem(booksToSave[i].status)
         );
       } else {
@@ -346,7 +370,7 @@ export class SearchForm implements Form {
     stats.renderUpdatedStats();
 
     //Clear fields and remove results
-    this.currentData = undefined;
+    this.currentData = [];
     this._closeSearchForm();
   };
 
