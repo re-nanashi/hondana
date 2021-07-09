@@ -1,6 +1,6 @@
-import { statusButton } from '../shared/status_button/button';
 import BookCard from './book';
 import * as anime from 'animejs';
+import { statusButton } from '../shared/status_button/button';
 
 import {
   Book,
@@ -61,7 +61,6 @@ export class SearchForm implements Form {
         })
       );
 
-      console.log(updatedData);
       return updatedData;
     } catch (err) {
       throw new Error(err);

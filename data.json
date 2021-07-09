@@ -1,0 +1,160 @@
+{
+	"kind": "books#volumes",
+	"totalItems": 842,
+	"items": [
+		{
+			"kind": "books#volume",
+			"id": "v_ehDwAAQBAJ",
+			"etag": "vS+TOjVqb54",
+			"selfLink": "https://www.googleapis.com/books/v1/volumes/v_ehDwAAQBAJ",
+			"volumeInfo": {
+				"title": "Teasing Master Takagi-san",
+				"authors": ["Soichiro Yamamoto"],
+				"publisher": "Yen Press LLC",
+				"publishedDate": "2019-07-23",
+				"description": "Middle schooler Nishikata has had it with his classmate Takagi--the chronic teaser who sits nearby. Day in and day out, she comes after him with every sort of trick or prank. Even when he tries to get her back, she's always one step ahead. But rest assured, it's only the beginning. He's not about to give up that easily in this battle of cunning and youth!",
+				"industryIdentifiers": [
+					{
+						"type": "ISBN_13",
+						"identifier": "9781975386122"
+					},
+					{
+						"type": "ISBN_10",
+						"identifier": "1975386124"
+					}
+				],
+				"readingModes": {
+					"text": true,
+					"image": false
+				},
+				"pageCount": 160,
+				"printType": "BOOK",
+				"categories": ["Comics & Graphic Novels"],
+				"averageRating": 3,
+				"ratingsCount": 1,
+				"maturityRating": "NOT_MATURE",
+				"allowAnonLogging": true,
+				"contentVersion": "1.1.1.0.preview.2",
+				"panelizationSummary": {
+					"containsEpubBubbles": true,
+					"containsImageBubbles": true,
+					"epubBubbleVersion": "e9d81cc541b7f630_A",
+					"imageBubbleVersion": "e9d81cc541b7f630_A"
+				},
+				"imageLinks": {
+					"smallThumbnail": "http://books.google.com/books/content?id=v_ehDwAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+					"thumbnail": "http://books.google.com/books/content?id=v_ehDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+				},
+				"language": "en",
+				"previewLink": "http://books.google.com.ph/books?id=v_ehDwAAQBAJ&dq=karakai%25jouzu%25volume1&hl=&cd=1&source=gbs_api",
+				"infoLink": "http://books.google.com.ph/books?id=v_ehDwAAQBAJ&dq=karakai%25jouzu%25volume1&hl=&source=gbs_api",
+				"canonicalVolumeLink": "https://books.google.com/books/about/Teasing_Master_Takagi_san.html?hl=&id=v_ehDwAAQBAJ",
+				"seriesInfo": {
+					"kind": "books#volume_series_info",
+					"bookDisplayNumber": "1",
+					"volumeSeries": [
+						{
+							"seriesId": "P7IpGwAAABAXqM",
+							"seriesBookType": "COLLECTED_EDITION",
+							"orderNumber": 1
+						}
+					]
+				}
+			},
+			"saleInfo": {
+				"country": "PH",
+				"saleability": "NOT_FOR_SALE",
+				"isEbook": false
+			},
+			"accessInfo": {
+				"country": "PH",
+				"viewability": "NO_PAGES",
+				"embeddable": false,
+				"publicDomain": false,
+				"textToSpeechPermission": "ALLOWED",
+				"epub": {
+					"isAvailable": true
+				},
+				"pdf": {
+					"isAvailable": true
+				},
+				"webReaderLink": "http://play.google.com/books/reader?id=v_ehDwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+				"accessViewStatus": "NONE",
+				"quoteSharingAllowed": false
+			},
+			"searchInfo": {
+				"textSnippet": "Middle schooler Nishikata has had it with his classmate Takagi--the chronic teaser who sits nearby."
+			}
+		},
+		{
+			"kind": "books#volume",
+			"id": "0xpPxAEACAAJ",
+			"etag": "fPQ5B079ofI",
+			"selfLink": "https://www.googleapis.com/books/v1/volumes/0xpPxAEACAAJ",
+			"volumeInfo": {
+				"title": "Classroom of the Elite (Light Novel)",
+				"authors": ["Syougo Kinugasa"],
+				"publisher": "Seven Seas",
+				"publishedDate": "2020-02-25",
+				"description": "SIGNS OF TROUBLE The second half of the special summer test finds the students duking it out aboard a luxurious cruise ship. Divided into twelve groups patterned after the signs of the Zodiac, all four classes are faced with a devilishly difficult test of their thinking skills. They may have survived the island, but they’re not out of hot water yet!",
+				"industryIdentifiers": [
+					{
+						"type": "ISBN_10",
+						"identifier": "1645051978"
+					},
+					{
+						"type": "ISBN_13",
+						"identifier": "9781645051978"
+					}
+				],
+				"readingModes": {
+					"text": false,
+					"image": false
+				},
+				"pageCount": 320,
+				"printType": "BOOK",
+				"categories": ["Comics & Graphic Novels"],
+				"maturityRating": "NOT_MATURE",
+				"allowAnonLogging": false,
+				"contentVersion": "preview-1.0.0",
+				"panelizationSummary": {
+					"containsEpubBubbles": false,
+					"containsImageBubbles": false
+				},
+				"comicsContent": true,
+				"imageLinks": {
+					"smallThumbnail": "http://books.google.com/books/content?id=0xpPxAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+					"thumbnail": "http://books.google.com/books/content?id=0xpPxAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+				},
+				"language": "un",
+				"previewLink": "http://books.google.com.ph/books?id=0xpPxAEACAAJ&dq=classroom%25of%25the%25elite%25volume4.5&hl=&cd=1&source=gbs_api",
+				"infoLink": "http://books.google.com.ph/books?id=0xpPxAEACAAJ&dq=classroom%25of%25the%25elite%25volume4.5&hl=&source=gbs_api",
+				"canonicalVolumeLink": "https://books.google.com/books/about/Classroom_of_the_Elite_Light_Novel.html?hl=&id=0xpPxAEACAAJ"
+			},
+			"saleInfo": {
+				"country": "PH",
+				"saleability": "NOT_FOR_SALE",
+				"isEbook": false
+			},
+			"accessInfo": {
+				"country": "PH",
+				"viewability": "NO_PAGES",
+				"embeddable": false,
+				"publicDomain": false,
+				"textToSpeechPermission": "ALLOWED",
+				"epub": {
+					"isAvailable": false
+				},
+				"pdf": {
+					"isAvailable": false
+				},
+				"webReaderLink": "http://play.google.com/books/reader?id=0xpPxAEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+				"accessViewStatus": "NONE",
+				"quoteSharingAllowed": false
+			},
+			"searchInfo": {
+				"textSnippet": "SIGNS OF TROUBLE The second half of the special summer test finds the students duking it out aboard a luxurious cruise ship."
+			}
+		}
+	]
+}
